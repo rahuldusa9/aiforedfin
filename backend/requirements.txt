@@ -1,0 +1,30 @@
+# -------------------------------------------------------
+# AI FOR EDUCATION – Backend Dependencies
+# -------------------------------------------------------
+
+# Web Framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-dotenv==1.0.1
+python-multipart==0.0.9
+
+# Database
+pymongo[srv]==4.8.0
+
+# AI / LLM
+google-generativeai==0.8.0
+
+# Text-to-Speech
+edge-tts==7.2.7
+gTTS==2.5.4
+pydub==0.25.1
+
+# Machine Learning
+scikit-learn==1.5.2
+pandas==2.2.3
+numpy==1.26.4
+joblib==1.4.2
+
+# Utilities
+pydantic==2.9.0
+pydantic[email]

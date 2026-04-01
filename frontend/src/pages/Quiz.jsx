@@ -33,13 +33,21 @@ export default function Quiz() {
     setQuiz(null)
     setResult(null)
     setAnswers({})
+    startTime.current = null
 
     try {
       const { data } = await generateQuiz(topic, numQuestions, difficulty)
+      if (!data || !data.questions || data.questions.length === 0) {
+        throw new Error('No questions generated')
+      }
       setQuiz(data)
       startTime.current = Date.now()
+      toast.success(`Generated ${data.questions.length} questions!`)
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to generate quiz.')
+      console.error('[Quiz] Generation error:', err)
+      const errorMsg = err.response?.data?.detail || err.message || 'Failed to generate quiz.'
+      setError(errorMsg)
+      toast.error(errorMsg)
     } finally {
       setLoading(false)
     }
@@ -50,8 +58,14 @@ export default function Quiz() {
   }
 
   const handleSubmit = async () => {
+    if (!startTime.current) {
+      toast.error('Invalid quiz session. Please restart.')
+      return
+    }
+    
     const timeTaken = (Date.now() - startTime.current) / 1000
     setSubmitting(true)
+    setError('')
 
     try {
       const { data } = await submitQuiz({
@@ -63,8 +77,12 @@ export default function Quiz() {
         time_taken_seconds: timeTaken,
       })
       setResult(data)
+      toast.success('Quiz completed!')
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to submit quiz.')
+      console.error('[Quiz] Submit error:', err)
+      const errorMsg = err.response?.data?.detail || 'Failed to submit quiz.'
+      setError(errorMsg)
+      toast.error(errorMsg)
     } finally {
       setSubmitting(false)
     }

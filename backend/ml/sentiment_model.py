@@ -188,22 +188,40 @@ def predict_sentiment(text: str) -> dict:
             "probabilities": dict
         }
     """
-    _load_sentiment_model()
+    # Handle empty or invalid text
+    if not text or not text.strip():
+        return {
+            "sentiment": "neutral",
+            "confidence": 0.0,
+            "is_negative": False,
+            "probabilities": {"neutral": 1.0},
+        }
+    
+    try:
+        _load_sentiment_model()
 
-    prediction = _sentiment_model.predict([text])[0]
-    probas = _sentiment_model.predict_proba([text])[0]
-    classes = _sentiment_model.classes_
+        prediction = _sentiment_model.predict([text])[0]
+        probas = _sentiment_model.predict_proba([text])[0]
+        classes = _sentiment_model.classes_
 
-    prob_dict = {cls: round(float(p), 4) for cls, p in zip(classes, probas)}
-    confidence = round(float(max(probas)), 4)
-    is_negative = prediction in ("stressed", "anxious")
+        prob_dict = {cls: round(float(p), 4) for cls, p in zip(classes, probas)}
+        confidence = round(float(max(probas)), 4)
+        is_negative = prediction in ("stressed", "anxious")
 
-    return {
-        "sentiment": prediction,
-        "confidence": confidence,
-        "is_negative": is_negative,
-        "probabilities": prob_dict,
-    }
+        return {
+            "sentiment": prediction,
+            "confidence": confidence,
+            "is_negative": is_negative,
+            "probabilities": prob_dict,
+        }
+    except Exception as e:
+        logger.error(f"[ML] Sentiment prediction error: {e}")
+        return {
+            "sentiment": "neutral",
+            "confidence": 0.0,
+            "is_negative": False,
+            "probabilities": {"neutral": 1.0},
+        }
 
 
 if __name__ == "__main__":

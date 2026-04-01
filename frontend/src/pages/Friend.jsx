@@ -10,10 +10,10 @@ import { PageHeader, Card, Button } from '../components/UI'
  */
 
 const sentimentIcons = {
-  positive: { icon: Smile, color: 'text-white' },
+  positive: { icon: Smile, color: 'text-green-400' },
   neutral: { icon: Meh, color: 'text-gray-400' },
-  stressed: { icon: Frown, color: 'text-gray-300' },
-  anxious: { icon: AlertTriangle, color: 'text-gray-300' },
+  stressed: { icon: Frown, color: 'text-orange-400' },
+  anxious: { icon: AlertTriangle, color: 'text-red-400' },
 }
 
 export default function Friend() {
@@ -48,19 +48,23 @@ export default function Friend() {
         ...prev,
         {
           role: 'ai',
-          text: data.response,
-          sentiment: data.sentiment,
-          isNegative: data.is_negative,
-          confidence: data.confidence,
+          text: data.response || "I'm sorry, I couldn't generate a response.",
+          sentiment: data.sentiment || 'neutral',
+          isNegative: data.is_negative || false,
+          confidence: data.confidence || 0,
         },
       ])
     } catch (err) {
+      console.error('[Friend] Chat error:', err)
+      const errorMessage = err.response?.data?.detail || "I'm sorry, I couldn't process that right now. Please try again in a moment."
       setMessages((prev) => [
         ...prev,
         {
           role: 'ai',
-          text: "I'm sorry, I couldn't process that right now. Please try again in a moment.",
+          text: errorMessage,
           sentiment: 'neutral',
+          isNegative: false,
+          confidence: 0,
         },
       ])
     } finally {
@@ -108,7 +112,7 @@ export default function Friend() {
                 }`}
               >
                 <div
-                  className={`inline-block p-3 rounded-xl text-sm leading-relaxed ${
+                  className={`inline-block p-3 rounded-xl text-sm leading-relaxed whitespace-pre-line ${
                     msg.role === 'user'
                       ? 'bg-white text-black rounded-tr-none'
                       : msg.isNegative
@@ -121,13 +125,15 @@ export default function Friend() {
 
                 {/* Sentiment badge */}
                 {msg.role === 'ai' && msg.sentiment && (
-                  <div className="flex items-center gap-1.5 mt-1.5 text-xs text-gray-500">
-                    {sentimentIcons[msg.sentiment] && (() => {
+                  <div className={`flex items-center gap-1.5 mt-1.5 text-xs ${
+                    msg.role === 'user' ? 'justify-end' : ''
+                  }`}>
+                    {sentimentIcons[msg.sentiment] ? (() => {
                       const SIcon = sentimentIcons[msg.sentiment].icon
                       return <SIcon size={12} className={sentimentIcons[msg.sentiment].color} />
-                    })()}
-                    <span className="capitalize">{msg.sentiment}</span>
-                    {msg.confidence && (
+                    })() : null}
+                    <span className="capitalize text-gray-500">{msg.sentiment}</span>
+                    {msg.confidence && msg.confidence > 0 && (
                       <span className="text-gray-600">({(msg.confidence * 100).toFixed(0)}%)</span>
                     )}
                   </div>

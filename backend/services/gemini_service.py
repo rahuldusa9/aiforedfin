@@ -9,7 +9,7 @@ import re
 from typing import Optional
 
 import google.generativeai as genai
-from config import GEMINI_API_KEY
+from config import GEMINI_API_KEY, GEMINI_MODEL
 
 logger = logging.getLogger(__name__)
 
@@ -24,10 +24,17 @@ def _get_model():
     global _model
     if _model is None:
         if not GEMINI_API_KEY:
-            raise ValueError("GEMINI_API_KEY is not set in environment variables.")
-        genai.configure(api_key=GEMINI_API_KEY)
-        _model = genai.GenerativeModel("gemini-2.5-flash")
-        logger.info("[Gemini] Model initialized.")
+            logger.error("[Gemini] GEMINI_API_KEY is not set in environment variables!")
+            raise ValueError("GEMINI_API_KEY is not set in environment variables. Please set it in your .env file.")
+        
+        try:
+            genai.configure(api_key=GEMINI_API_KEY)
+            _model = genai.GenerativeModel(GEMINI_MODEL)
+            logger.info(f"[Gemini] Model initialized successfully with {GEMINI_MODEL}")
+            logger.info(f"[Gemini] API Key configured (first 10 chars): {GEMINI_API_KEY[:10]}...")
+        except Exception as e:
+            logger.error(f"[Gemini] Failed to initialize model: {e}")
+            raise
     return _model
 
 
@@ -44,6 +51,8 @@ def generate_text(prompt: str, max_tokens: int = 4096) -> str:
     """
     try:
         model = _get_model()
+        logger.debug(f"[Gemini] Sending prompt (length: {len(prompt)} chars)")
+        
         response = model.generate_content(
             prompt,
             generation_config=genai.types.GenerationConfig(
@@ -51,9 +60,13 @@ def generate_text(prompt: str, max_tokens: int = 4096) -> str:
                 temperature=0.7,
             ),
         )
-        return response.text
+        
+        result_text = response.text
+        logger.debug(f"[Gemini] Received response (length: {len(result_text)} chars)")
+        return result_text
+        
     except Exception as e:
-        logger.error(f"[Gemini] Generation error: {e}")
+        logger.error(f"[Gemini] Generation error: {e}", exc_info=True)
         raise
 
 
@@ -95,14 +108,29 @@ No markdown, no code blocks, no extra text. Only the JSON array."""
             script = json.loads(match.group())
         else:
             logger.error(f"[Gemini] Could not parse podcast script: {raw[:200]}")
-            script = [
-                {"speaker": "Host", "text": f"Welcome! Today we're discussing {topic}."},
-                {"speaker": "Expert", "text": f"Thanks! {topic} is a fascinating subject. Let me explain the key concepts."},
-                {"speaker": "Host", "text": "That sounds great. What should students know first?"},
-                {"speaker": "Expert", "text": f"The fundamentals of {topic} include understanding the core principles and how they apply in real life."},
-            ]
+            script = []
 
-    return script
+    # Validate and fallback if empty/invalid
+    cleaned_script = []
+    for entry in script if isinstance(script, list) else []:
+        if not isinstance(entry, dict):
+            continue
+        speaker = entry.get("speaker", "Host")
+        text = entry.get("text", "").strip()
+        if not text:
+            continue
+        cleaned_script.append({"speaker": speaker, "text": text})
+
+    if not cleaned_script:
+        logger.warning("[Gemini] Podcast script empty after parsing; using fallback.")
+        cleaned_script = [
+            {"speaker": "Host", "text": f"Welcome! Today we're discussing {topic}."},
+            {"speaker": "Expert", "text": f"Thanks! {topic} is a fascinating subject. Let me explain the key concepts."},
+            {"speaker": "Host", "text": "That sounds great. What should students know first?"},
+            {"speaker": "Expert", "text": f"The fundamentals of {topic} include understanding the core principles and how they apply in real life."},
+        ]
+
+    return cleaned_script
 
 
 def generate_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium") -> list[dict]:
@@ -128,43 +156,108 @@ Return ONLY valid JSON array format:
 
 No markdown, no code blocks, no extra text. Only the JSON array."""
 
-    raw = generate_text(prompt, max_tokens=3000)
-
     try:
-        questions = json.loads(raw)
-    except json.JSONDecodeError:
-        match = re.search(r'\[.*\]', raw, re.DOTALL)
-        if match:
-            questions = json.loads(match.group())
-        else:
-            logger.error(f"[Gemini] Could not parse quiz: {raw[:200]}")
-            questions = [{
-                "question": f"What is a key concept in {topic}?",
-                "options": {"A": "Concept A", "B": "Concept B", "C": "Concept C", "D": "Concept D"},
+        raw = generate_text(prompt, max_tokens=3000)
+
+        try:
+            questions = json.loads(raw)
+        except json.JSONDecodeError:
+            # Try to extract JSON from response
+            match = re.search(r'\[.*\]', raw, re.DOTALL)
+            if match:
+                questions = json.loads(match.group())
+            else:
+                logger.error(f"[Gemini] Could not parse quiz JSON: {raw[:200]}")
+                # Fallback questions
+                questions = [{
+                    "question": f"What is a key concept in {topic}?",
+                    "options": {"A": "Concept A", "B": "Concept B", "C": "Concept C", "D": "Concept D"},
+                    "correct": "A",
+                    "explanation": "This is a fundamental concept."
+                }]
+
+        # Validate and clean questions
+        validated_questions = []
+        for i, q in enumerate(questions[:num_questions]):
+            if not isinstance(q, dict):
+                continue
+            if "question" not in q or "options" not in q or "correct" not in q:
+                continue
+            if not isinstance(q["options"], dict) or len(q["options"]) != 4:
+                continue
+            
+            # Ensure correct answer is valid
+            if q["correct"] not in q["options"]:
+                q["correct"] = "A"
+            
+            # Add explanation if missing
+            if "explanation" not in q:
+                q["explanation"] = f"This answer is correct for {topic}."
+            
+            validated_questions.append(q)
+
+        # If no valid questions, return fallback
+        if not validated_questions:
+            logger.warning(f"[Gemini] No valid questions generated for {topic}")
+            validated_questions = [{
+                "question": f"What is an important aspect of {topic}?",
+                "options": {
+                    "A": f"It is a fundamental concept in {topic}",
+                    "B": f"It is unrelated to {topic}",
+                    "C": f"It contradicts {topic}",
+                    "D": f"It has no connection to {topic}"
+                },
                 "correct": "A",
-                "explanation": "This is a fundamental concept."
+                "explanation": f"Understanding the fundamentals of {topic} is essential."
             }]
 
-    return questions[:num_questions]
+        return validated_questions
+    except Exception as e:
+        logger.error(f"[Gemini] Quiz generation failed: {e}")
+        # Return minimal fallback
+        return [{
+            "question": f"What should you learn about {topic}?",
+            "options": {
+                "A": "The basic principles",
+                "B": "Nothing at all",
+                "C": "Unrelated topics",
+                "D": "Random information"
+            },
+            "correct": "A",
+            "explanation": f"Learning the basic principles of {topic} is important."
+        }]
 
 
 def generate_story(topic: str) -> str:
     """
     Convert a topic into a narrative educational explanation.
     """
-    prompt = f"""Create an engaging educational story that teaches about "{topic}".
+    prompt = f"""Write a SHORT, PUNCHY educational story about "{topic}".
 
-The story should:
-- Be written as a narrative (not a textbook)
-- Include characters and a plot
-- Weave educational concepts naturally into the narrative
-- Be 400-600 words long
-- Be suitable for students
-- End with a brief summary of what was learned
+STYLE: Fast-paced, exciting, dramatic. Keep readers on the edge!
 
-Write the story directly, no titles or headers needed."""
+REQUIREMENTS:
+- 300-400 words MAX - be concise!
+- 3-4 paragraphs only
+- Start with ACTION or DRAMA - hook them instantly
+- Include 2-3 quick dialogue exchanges
+- Make it EXCITING - use vivid verbs, short punchy sentences
+- End with a satisfying twist or revelation about {topic}
 
-    return generate_text(prompt, max_tokens=2000)
+TONE:
+- Energetic and dynamic
+- Short sentences for tension: "She gasped. The answer was right there."
+- Dramatic pauses with "..."
+- Exclamation for excitement!
+
+STRUCTURE:
+1. HOOK (2-3 sentences): Start mid-action or with a mystery
+2. ADVENTURE (1-2 paragraphs): Quick discovery of {topic} through exciting events
+3. CLIMAX & END (1 paragraph): Dramatic revelation + lesson learned
+
+NO titles, NO headers. Jump straight into the action!"""
+
+    return generate_text(prompt, max_tokens=1500)
 
 
 def generate_learning_path(topic: str) -> dict:
@@ -229,24 +322,53 @@ No markdown, no code blocks. Only JSON."""
 
 def generate_chat_response(message: str, sentiment: str, is_negative: bool) -> str:
     """
-    Generate an AI Friend chat response, adjusting tone based on sentiment.
+    Generate an AI Friend chat response using Gemini API, adjusting tone based on sentiment.
     """
-    tone_instruction = ""
-    if is_negative:
-        tone_instruction = """The student seems to be feeling {sentiment}. 
-Please respond with extra empathy, encouragement, and support. 
-Acknowledge their feelings first, then gently offer help or encouragement.
-Be warm and caring.""".format(sentiment=sentiment)
-    else:
-        tone_instruction = "Respond in a friendly, encouraging, and helpful tone."
+    prompt = f"""You are my best friend. We chat about everything.
 
-    prompt = f"""You are an AI study buddy and emotional support friend for a student.
+MESSAGE: "{message}"
+MOOD: {sentiment}
 
-{tone_instruction}
+RESPONSE FORMAT:
 
-Student's message: "{message}"
+For casual chat - just reply naturally in 1-2 short sentences.
 
-Respond naturally in 2-4 sentences. Be conversational, supportive, and helpful.
-If they're asking about a topic, explain briefly. If they're sharing feelings, be empathetic."""
+For advice/problems - use this EXACT format:
 
-    return generate_text(prompt, max_tokens=500)
+[One line about their situation]
+
+Do this:
+• [Action 1]
+• [Action 2]
+• [Action 3]
+
+Say this:
+"[exact words they can say]"
+
+Tip: [one helpful tip]
+
+RULES:
+- Put each section on a NEW LINE
+- Use • for bullet points
+- Keep it short and clear
+- Be specific with advice
+- Sound like a real friend, not formal"""
+
+    try:
+        logger.info(f"[Gemini] Generating chat response for: {message[:50]}...")
+        response = generate_text(prompt, max_tokens=1200)
+
+        if not response or not response.strip():
+            logger.warning("[Gemini] Empty response from API, retrying with simpler prompt...")
+            simple_prompt = f"""You are a helpful life coach. Give specific, practical advice for this situation: '{message}'
+
+Include: 1) What to do right now, 2) What to say, 3) How to handle it long-term. Be specific and helpful."""
+            response = generate_text(simple_prompt, max_tokens=1000)
+        
+        logger.info(f"[Gemini] Successfully generated response: {response[:50]}...")
+        return response.strip()
+        
+    except Exception as e:
+        logger.error(f"[Gemini] Chat response generation FAILED: {e}", exc_info=True)
+        # This should rarely happen - only when API is completely unavailable
+        raise Exception(f"Failed to generate AI response: {str(e)}")

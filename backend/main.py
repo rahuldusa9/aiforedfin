@@ -132,6 +132,16 @@ from routes.tutor import router as tutor_router
 from routes.friend import router as friend_router
 from routes.ml_routes import router as ml_router
 from routes.dashboard import router as dashboard_router
+from routes.recommendation import router as recommendation_router
+
+# New feature routes
+from routes.gamification import router as gamification_router
+from routes.flashcards import router as flashcards_router
+from routes.analytics import router as analytics_router
+from routes.notes import router as notes_router
+from routes.voice import router as voice_router
+from routes.learning_paths import router as learning_paths_router
+from routes.study_buddy import router as study_buddy_router
 
 app.include_router(auth_router)
 app.include_router(podcast_router)
@@ -141,6 +151,16 @@ app.include_router(tutor_router)
 app.include_router(friend_router)
 app.include_router(ml_router)
 app.include_router(dashboard_router)
+app.include_router(recommendation_router)
+
+# New features
+app.include_router(gamification_router)
+app.include_router(flashcards_router)
+app.include_router(analytics_router)
+app.include_router(notes_router)
+app.include_router(voice_router)
+app.include_router(learning_paths_router)
+app.include_router(study_buddy_router)
 
 
 # -------------------------------------------------------

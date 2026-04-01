@@ -9,6 +9,8 @@ import Story from './pages/Story'
 import Tutor from './pages/Tutor'
 import Friend from './pages/Friend'
 import Profile from './pages/Profile'
+import Flashcards from './pages/Flashcards'
+import Progress from './pages/Progress'
 
 /**
  * AI FOR EDUCATION – Root Application Component
@@ -38,6 +40,8 @@ export default function App() {
         <Route path="/tutor" element={<Tutor />} />
         <Route path="/friend" element={<Friend />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/flashcards" element={<Flashcards />} />
+        <Route path="/progress" element={<Progress />} />
       </Routes>
     </Layout>
   )

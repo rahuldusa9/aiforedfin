@@ -59,7 +59,7 @@ A comprehensive AI-powered educational platform that combines adaptive learning,
 |-------------|-------------------------------------|
 | Frontend    | React.js (Vite), Tailwind CSS       |
 | Backend     | Python (FastAPI), REST API           |
-| Database    | SQLite (SQLAlchemy ORM)              |
+| Database    | mongodb            |
 | AI/LLM      | Google Gemini API                   |
 | TTS         | Edge TTS, PyDub                     |
 | ML          | Scikit-learn (RandomForest, LogisticRegression, Naive Bayes) |
@@ -343,3 +343,4 @@ This project is built for educational purposes.
 ---
 
 *Built with ♡ for learners everywhere.*
+# aiforeducation

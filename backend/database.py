@@ -4,6 +4,7 @@ MongoDB Atlas via PyMongo.
 """
 
 import logging
+import certifi
 from pymongo import MongoClient, ASCENDING
 from config import MONGODB_URI, MONGODB_DB_NAME
 
@@ -23,7 +24,7 @@ def get_db():
     """
     global _client, _db
     if _db is None:
-        _client = MongoClient(MONGODB_URI)
+        _client = MongoClient(MONGODB_URI, tlsCAFile=certifi.where())
         _db = _client[MONGODB_DB_NAME]
         logger.info(f"[DB] Connected to MongoDB: {MONGODB_DB_NAME}")
     return _db
@@ -62,3 +63,13 @@ def close_db():
         _client = None
         _db = None
         logger.info("[DB] MongoDB connection closed.")
+
+class _DBProxy:
+    """Proxy object to allow `from database import db` in services without eager initialization."""
+    def __getattr__(self, name):
+        return get_db()[name]
+    
+    def __getitem__(self, key):
+        return get_db()[key]
+
+db = _DBProxy()

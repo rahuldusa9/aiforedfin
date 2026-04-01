@@ -32,6 +32,7 @@ MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "afe")
 # Gemini API
 # -------------------------------------------------------
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 # -------------------------------------------------------
 # Server

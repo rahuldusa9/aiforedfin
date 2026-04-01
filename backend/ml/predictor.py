@@ -65,59 +65,83 @@ def predict_performance(
             "probabilities": {"low": float, "medium": float, "high": float}
         }
     """
-    _load_artifacts()
-
-    # Encode inputs
     try:
-        diff_encoded = _encoders["difficulty_level"].transform([difficulty_level])[0]
-    except ValueError:
-        diff_encoded = 1  # Default to medium
+        _load_artifacts()
 
-    try:
-        topic_encoded = _encoders["topic_category"].transform([topic_category])[0]
-    except ValueError:
-        topic_encoded = 0
+        # Validate and clamp inputs
+        quiz_accuracy = max(0.0, min(1.0, quiz_accuracy))
+        average_response_time = max(0.0, average_response_time)
+        number_of_attempts = max(1, int(number_of_attempts))
+        
+        # Normalize difficulty level
+        difficulty_level = difficulty_level.lower().strip()
+        if difficulty_level not in ["easy", "medium", "hard"]:
+            difficulty_level = "medium"
+        
+        # Normalize topic
+        topic_category = topic_category.lower().strip() if topic_category else "general"
 
-    # Feature vector
-    features = np.array([[
-        quiz_accuracy,
-        average_response_time,
-        diff_encoded,
-        number_of_attempts,
-        topic_encoded,
-    ]])
+        # Encode inputs
+        try:
+            diff_encoded = _encoders["difficulty_level"].transform([difficulty_level])[0]
+        except (ValueError, KeyError):
+            diff_encoded = 1  # Default to medium
 
-    # Scale
-    features_scaled = _scaler.transform(features)
+        try:
+            topic_encoded = _encoders["topic_category"].transform([topic_category])[0]
+        except (ValueError, KeyError):
+            topic_encoded = 0  # Default to first category
 
-    # Predict
-    prediction = _model.predict(features_scaled)[0]
-    probabilities = _model.predict_proba(features_scaled)[0]
+        # Feature vector
+        features = np.array([[
+            quiz_accuracy,
+            average_response_time,
+            diff_encoded,
+            number_of_attempts,
+            topic_encoded,
+        ]])
 
-    # Decode prediction
-    performance_label = _encoders["performance_level"].inverse_transform([prediction])[0]
+        # Scale
+        features_scaled = _scaler.transform(features)
 
-    # Build probability dict
-    class_labels = _encoders["performance_level"].classes_
-    prob_dict = {label: round(float(prob), 4) for label, prob in zip(class_labels, probabilities)}
+        # Predict
+        prediction = _model.predict(features_scaled)[0]
+        probabilities = _model.predict_proba(features_scaled)[0]
 
-    # Weakness probability = probability of "low" performance
-    weakness_prob = prob_dict.get("low", 0.0)
+        # Decode prediction
+        performance_label = _encoders["performance_level"].inverse_transform([prediction])[0]
 
-    # Recommended difficulty
-    if performance_label == "high":
-        recommended = "hard"
-    elif performance_label == "medium":
-        recommended = "medium"
-    else:
-        recommended = "easy"
+        # Build probability dict
+        class_labels = _encoders["performance_level"].classes_
+        prob_dict = {label: round(float(prob), 4) for label, prob in zip(class_labels, probabilities)}
 
-    confidence = round(float(max(probabilities)), 4)
+        # Weakness probability = probability of "low" performance
+        weakness_prob = prob_dict.get("low", 0.0)
 
-    return {
-        "predicted_performance": performance_label,
-        "confidence": confidence,
-        "recommended_difficulty": recommended,
-        "weakness_probability": round(weakness_prob, 4),
-        "probabilities": prob_dict,
-    }
+        # Recommended difficulty
+        if performance_label == "high":
+            recommended = "hard"
+        elif performance_label == "medium":
+            recommended = "medium"
+        else:
+            recommended = "easy"
+
+        confidence = round(float(max(probabilities)), 4)
+
+        return {
+            "predicted_performance": performance_label,
+            "confidence": confidence,
+            "recommended_difficulty": recommended,
+            "weakness_probability": round(weakness_prob, 4),
+            "probabilities": prob_dict,
+        }
+    except Exception as e:
+        logger.error(f"[ML] Performance prediction error: {e}")
+        # Return safe defaults
+        return {
+            "predicted_performance": "medium",
+            "confidence": 0.5,
+            "recommended_difficulty": difficulty_level if difficulty_level in ["easy", "medium", "hard"] else "medium",
+            "weakness_probability": 0.33,
+            "probabilities": {"low": 0.33, "medium": 0.34, "high": 0.33},
+        }

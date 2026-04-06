@@ -14,49 +14,43 @@ const PRECACHE_ASSETS = [
   '/manifest.json',
 ];
 
-// Install event - precache critical assets
+// Development Mode Kill-Switch for Service Worker
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker...');
-
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[SW] Precaching critical assets');
-      return cache.addAll(PRECACHE_ASSETS);
-    })
-  );
-
-  // Activate immediately
   self.skipWaiting();
 });
 
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker...');
-
+  console.log('[SW] Wiping all caches...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => {
-            console.log('[SW] Deleting old cache:', name);
-            return caches.delete(name);
-          })
+        cacheNames.map((name) => {
+          return caches.delete(name);
+        })
       );
     })
   );
-
-  // Take control immediately
   self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - passthrough
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   // Skip non-GET requests
   if (request.method !== 'GET') {
+    return;
+  }
+
+  // Skip Vite dev server requests and source files
+  if (
+    url.pathname.startsWith('/@') || 
+    url.pathname.includes('node_modules') || 
+    url.pathname.startsWith('/src/') ||
+    url.search.includes('v=') ||
+    url.search.includes('t=')
+  ) {
     return;
   }
 

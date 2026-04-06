@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { BookOpen, Play, Pause, Globe, Sparkles } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { BookOpen, Play, Pause, Globe, Sparkles, FileText } from 'lucide-react'
 import { generateStory, generateMultilingualStory, getStoryLanguages } from '../api'
 import { useToast } from '../context/ToastContext'
 import { PageHeader, Card, Input, Button, AudioPlayer, LoadingSpinner } from '../components/UI'
@@ -35,16 +36,18 @@ export default function Story() {
   const [cursorPos, setCursorPos] = useState(0)
   const [isReading, setIsReading] = useState(false)
   const [readingSpeed, setReadingSpeed] = useState(300)
+  const [audioCompleted, setAudioCompleted] = useState(false)
   const intervalRef = useRef(null)
   const storyRef = useRef(null)
   const toast = useToast()
+  const navigate = useNavigate()
 
   // Multilingual settings
   const [languages, setLanguages] = useState([])
   const [selectedLanguage, setSelectedLanguage] = useState('en')
   const [selectedGenre, setSelectedGenre] = useState('educational')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('kids')
-  const [isMultilingual, setIsMultilingual] = useState(false)
+  const [selectedLength, setSelectedLength] = useState('400')
 
   // Load available languages on mount
   useEffect(() => {
@@ -112,25 +115,21 @@ export default function Story() {
     setLoading(true)
     setError('')
     setResult(null)
+    setAudioCompleted(false)
     stopReadingCursor()
 
     try {
       let data
-      if (isMultilingual) {
-        const response = await generateMultilingualStory({
-          topic,
-          language: selectedLanguage,
-          genre: selectedGenre,
-          ageGroup: selectedAgeGroup,
-          wordCount: 400,
-          includeAudio: true,
-          includeProsody: true,
-        })
-        data = response.data
-      } else {
-        const response = await generateStory(topic)
-        data = response.data
-      }
+      const response = await generateMultilingualStory({
+        topic,
+        language: selectedLanguage,
+        genre: selectedGenre,
+        ageGroup: selectedAgeGroup,
+        wordCount: parseInt(selectedLength, 10),
+        includeAudio: true,
+        includeProsody: true,
+      })
+      data = response.data
       setResult(data)
       toast.success('Story generated successfully!')
     } catch (err) {
@@ -140,6 +139,16 @@ export default function Story() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleAudioEnded = () => {
+    setAudioCompleted(true)
+    setIsReading(false)
+    toast.success('Story completed! Test your understanding with a quiz.', { duration: 5000 })
+  }
+
+  const takeQuiz = () => {
+    navigate('/quiz', { state: { topic: result?.topic || topic, content: result?.story_text } })
   }
 
   // Render story with storybook styling
@@ -236,32 +245,8 @@ export default function Story() {
             </Button>
           </div>
 
-          {/* Multilingual Toggle */}
-          <div className="flex items-center gap-3 pt-2 border-t border-gray-700/50">
-            <button
-              onClick={() => setIsMultilingual(!isMultilingual)}
-              className={`
-                flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-                transition-all duration-200 border
-                ${isMultilingual
-                  ? 'bg-purple-600/30 border-purple-500/50 text-purple-300'
-                  : 'bg-gray-800/50 border-gray-700/50 text-gray-400 hover:bg-gray-700/50'
-                }
-              `}
-            >
-              <Globe size={16} />
-              Multilingual Mode
-            </button>
-            {isMultilingual && (
-              <span className="text-xs text-gray-500">
-                Generate stories in any of 25+ languages with expressive prosody
-              </span>
-            )}
-          </div>
-
-          {/* Multilingual Options */}
-          {isMultilingual && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 animate-fade-in">
+          {/* Options */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-3 animate-fade-in">
               {/* Language Selection */}
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Language</label>
@@ -275,6 +260,20 @@ export default function Story() {
                       {lang.name} ({lang.voice_count} voices)
                     </option>
                   ))}
+                </select>
+              </div>
+
+              {/* Length Selection */}
+              <div>
+                <label className="block text-sm text-gray-400 mb-2">Length</label>
+                <select
+                  value={selectedLength}
+                  onChange={(e) => setSelectedLength(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-gray-100 rounded-lg px-3 py-2 text-sm"
+                >
+                  <option value="300">Short (~1 page)</option>
+                  <option value="600">Medium (~2 pages)</option>
+                  <option value="1000">Long (~3-4 pages)</option>
                 </select>
               </div>
 
@@ -310,13 +309,12 @@ export default function Story() {
                 </select>
               </div>
             </div>
-          )}
         </div>
       </Card>
 
       {loading && (
         <Card>
-          <LoadingSpinner text={isMultilingual ? `Crafting your ${selectedLanguage.toUpperCase()} story with prosody...` : "Crafting your story..."} />
+          <LoadingSpinner text={`Crafting your ${selectedLanguage.toUpperCase()} story...`} />
         </Card>
       )}
 
@@ -329,8 +327,21 @@ export default function Story() {
       {/* Storybook Result */}
       {result && (
         <div className="space-y-6 animate-fade-in">
-          {/* Audio Player */}
-          <AudioPlayer src={result.audio_url} />
+          {/* Audio Player and Quiz Prompt */}
+          <Card className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1 w-full">
+              <AudioPlayer src={result.audio_url} onEnded={handleAudioEnded} />
+            </div>
+            {audioCompleted && (
+              <div className="animate-fade-in w-full md:w-auto flex-shrink-0 flex items-center gap-3 bg-indigo-900/40 p-3 rounded-lg border border-indigo-500/30">
+                <span className="text-sm text-indigo-200 block">Story finished! Test your knowledge?</span>
+                <Button onClick={takeQuiz} className="bg-indigo-600 hover:bg-indigo-500 text-white border-0 py-2">
+                  <FileText size={16} />
+                  Take Quiz Now
+                </Button>
+              </div>
+            )}
+          </Card>
 
           {/* Storybook Container */}
           <div className="relative">

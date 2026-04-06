@@ -10,7 +10,7 @@ from services.tts_service import generate_podcast_audio
 logger = logging.getLogger(__name__)
 
 
-def create_podcast(topic: str) -> dict:
+def create_podcast(topic: str, language: str = "en", length: str = "medium") -> dict:
     """
     Full podcast creation pipeline.
     
@@ -20,6 +20,8 @@ def create_podcast(topic: str) -> dict:
     
     Args:
         topic: The podcast topic
+        language: Language code
+        length: "short", "medium", or "long"
     
     Returns:
         {
@@ -29,14 +31,14 @@ def create_podcast(topic: str) -> dict:
             "audio_url": str
         }
     """
-    logger.info(f"[Podcast] Creating podcast for topic: {topic}")
+    logger.info(f"[Podcast] Creating podcast for topic: {topic} in {language} (length: {length})")
 
     # Step 1: Generate script
-    script = generate_podcast_script(topic)
+    script = generate_podcast_script(topic, language, length)
     logger.info(f"[Podcast] Script generated: {len(script)} segments")
 
     # Step 2: Generate audio
-    audio_path = generate_podcast_audio(script)
+    audio_path = generate_podcast_audio(script, language)
     logger.info(f"[Podcast] Audio generated: {audio_path}")
 
     # Extract filename for URL

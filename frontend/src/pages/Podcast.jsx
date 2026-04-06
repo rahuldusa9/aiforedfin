@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { Mic, Play } from 'lucide-react'
-import { generatePodcast } from '../api'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Mic, Play, FileText, Globe, Clock, Sparkles } from 'lucide-react'
+import { generatePodcast, getStoryLanguages } from '../api'
 import { useToast } from '../context/ToastContext'
-import { PageHeader, Card, Input, Button, AudioPlayer, LoadingSpinner } from '../components/UI'
+import { PageHeader, Card, Input, Button, AudioPlayer, LoadingSpinner, Select } from '../components/UI'
 
 /**
  * AI FOR EDUCATION – AI Podcast Module
@@ -10,10 +11,36 @@ import { PageHeader, Card, Input, Button, AudioPlayer, LoadingSpinner } from '..
  */
 export default function Podcast() {
   const [topic, setTopic] = useState('')
+  const [language, setLanguage] = useState('en')
+  const [length, setLength] = useState('medium')
+  const [languages, setLanguages] = useState([])
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
+  const [audioCompleted, setAudioCompleted] = useState(false)
   const toast = useToast()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      try {
+        const { data } = await getStoryLanguages()
+        setLanguages(data)
+      } catch (err) {
+        console.error('Failed to load languages:', err)
+        setLanguages([
+          { code: 'en', name: 'English', voice_count: 9 },
+          { code: 'es', name: 'Spanish', voice_count: 6 },
+          { code: 'fr', name: 'French', voice_count: 5 },
+          { code: 'de', name: 'German', voice_count: 5 },
+          { code: 'hi', name: 'Hindi', voice_count: 2 },
+          { code: 'ja', name: 'Japanese', voice_count: 4 },
+          { code: 'ko', name: 'Korean', voice_count: 4 }
+        ])
+      }
+    }
+    fetchLanguages()
+  }, [])
 
   const handleGenerate = async () => {
     if (!topic.trim()) {
@@ -23,15 +50,29 @@ export default function Podcast() {
     setLoading(true)
     setError('')
     setResult(null)
+    setAudioCompleted(false)
 
     try {
-      const { data } = await generatePodcast(topic)
+      const { data } = await generatePodcast(topic, language, length)
       setResult(data)
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to generate podcast. Please try again.')
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleAudioEnded = () => {
+    setAudioCompleted(true)
+    toast.success('Podcast completed! Why not test your knowledge with a quiz?', { duration: 5000 })
+  }
+
+  const takeQuiz = () => {
+    let transcript = '';
+    if (result && result.script) {
+      transcript = result.script.map(s => `${s.speaker}: ${s.text}`).join('\n');
+    }
+    navigate('/quiz', { state: { topic: result?.topic || topic, content: transcript } })
   }
 
   return (
@@ -44,19 +85,54 @@ export default function Podcast() {
 
       {/* Input Section */}
       <Card className="mb-6">
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-1">
-            <Input
-              placeholder="Enter a topic (e.g., Quantum Physics, World War II, Machine Learning)"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-            />
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <Input
+                placeholder="Enter a topic (e.g., Quantum Physics, World War II, Machine Learning)"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+              />
+            </div>
+            <Button onClick={handleGenerate} loading={loading} className="sm:self-end">
+              <Sparkles size={16} />
+              Generate Podcast
+            </Button>
           </div>
-          <Button onClick={handleGenerate} loading={loading} className="sm:self-end">
-            <Mic size={16} />
-            Generate Podcast
-          </Button>
+
+          {/* Options */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 animate-fade-in">
+              {/* Language Selection */}
+              <div>
+                <label className="block text-sm text-gray-400 mb-2">Language</label>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-gray-100 rounded-lg px-3 py-2 text-sm"
+                >
+                  {languages.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.name} ({lang.voice_count} voices)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Length Selection */}
+              <div>
+                <label className="block text-sm text-gray-400 mb-2">Length</label>
+                <select
+                  value={length}
+                  onChange={(e) => setLength(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-gray-100 rounded-lg px-3 py-2 text-sm"
+                >
+                  <option value="short">Short (~3 mins)</option>
+                  <option value="medium">Medium (~5 mins)</option>
+                  <option value="long">Long (~10 mins)</option>
+                </select>
+              </div>
+          </div>
         </div>
       </Card>
 
@@ -77,8 +153,21 @@ export default function Podcast() {
       {/* Result */}
       {result && (
         <div className="space-y-6 animate-fade-in">
-          {/* Audio Player */}
-          <AudioPlayer src={result.audio_url} />
+          {/* Audio Player and Quiz Prompt */}
+          <Card className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1 w-full">
+              <AudioPlayer src={result.audio_url} onEnded={handleAudioEnded} />
+            </div>
+            {audioCompleted && (
+              <div className="animate-fade-in w-full md:w-auto flex-shrink-0 flex items-center gap-3 bg-indigo-900/40 p-3 rounded-lg border border-indigo-500/30">
+                <span className="text-sm text-indigo-200 block">Ready to test your knowledge?</span>
+                <Button onClick={takeQuiz} className="bg-indigo-600 hover:bg-indigo-500 text-white border-0 py-2">
+                  <FileText size={16} />
+                  Take Quiz Now
+                </Button>
+              </div>
+            )}
+          </Card>
 
           {/* Script */}
           <Card>

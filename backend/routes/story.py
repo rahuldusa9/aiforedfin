@@ -29,13 +29,12 @@ router = APIRouter(prefix="/api/story", tags=["AI Storytelling"])
 
 class StoryRequest(BaseModel):
     topic: str = Field(..., min_length=2, max_length=200, description="Story topic")
-
+    word_count: int = Field(default=400, ge=300, le=1000, description="Approximate word count")
 
 class StoryResponse(BaseModel):
     topic: str
     story_text: str
     audio_url: str
-
 
 class MultilingualStoryRequest(BaseModel):
     """Request for multilingual story generation."""
@@ -87,7 +86,7 @@ class VoiceInfo(BaseModel):
 def generate_story_endpoint(req: StoryRequest):
     """Generate an educational story with audio narration (English)."""
     try:
-        result = create_story(req.topic)
+        result = create_story(req.topic, req.word_count)
         return StoryResponse(**result)
     except Exception as e:
         logger.error(f"[Story] Error: {e}")

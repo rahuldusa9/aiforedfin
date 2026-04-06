@@ -162,34 +162,77 @@ def refine_audio(input_path: str, output_path: str = None) -> str:
     return output_path
 
 
-def generate_podcast_audio(script: list[dict]) -> str:
+def generate_podcast_audio(script: list[dict], language: str = "en") -> str:
     """
-    Generate a podcast MP3 in one pass to avoid ffmpeg/ffprobe requirements.
+    Generate a podcast MP3 with distinct voices for Host and Expert.
+    Matches gender and dynamically concatenates audio segments.
 
     Args:
         script: List of {"speaker": "...", "text": "..."} entries
+        language: Language code for TTS voice selection
 
     Returns:
         Path to the combined podcast MP3
     """
+    from services.multilingual_voices import get_voices_for_language, VoiceGender
+    all_langs = get_voices_for_language(language)
 
-    lines = []
-    for entry in script:
-        speaker = entry.get("speaker", "Host")
-        text = entry.get("text", "").strip()
-        if not text:
-            continue
-        lines.append(f"{speaker}: {text}")
+    # Assign distinct voices for Host and Expert
+    host_voice = "en-US-AriaNeural"
+    expert_voice = "en-US-GuyNeural"
 
-    if not lines:
-        raise ValueError("No audio segments were generated.")
+    if all_langs:
+        # Separate by gender
+        females = [v.voice_id for v in all_langs if v.gender == VoiceGender.FEMALE]
+        males = [v.voice_id for v in all_langs if v.gender == VoiceGender.MALE]
 
-    combined_text = "\n".join(lines)
+        if females and males:
+            host_voice = females[0]
+            expert_voice = males[0]
+        elif len(all_langs) >= 2:
+            host_voice = all_langs[0].voice_id
+            expert_voice = all_langs[1].voice_id
+        else:
+            host_voice = all_langs[0].voice_id
+            expert_voice = all_langs[0].voice_id
 
     output_filename = f"podcast_{uuid.uuid4().hex[:12]}.mp3"
-    output_path = generate_speech(combined_text, voice="narrator", filename=output_filename)
+    output_path = str(Path(AUDIO_OUTPUT_DIR) / output_filename)
 
-    # Only refine if ffmpeg/ffprobe are available
+    temp_files = []
+    
+    try:
+        for idx, entry in enumerate(script):
+            speaker = entry.get("speaker", "Host")
+            text = entry.get("text", "").strip()
+            if not text:
+                continue
+
+            voice_to_use = host_voice if speaker == "Host" else expert_voice
+            temp_file = str(Path(AUDIO_OUTPUT_DIR) / f"temp_{uuid.uuid4().hex[:8]}.mp3")
+            generate_speech(text, voice=voice_to_use, filename=Path(temp_file).name)
+            temp_files.append(temp_file)
+
+        if not temp_files:
+            raise ValueError("No audio segments were generated.")
+
+        # Simple byte concatenation (works for MP3 frames)
+        with open(output_path, 'wb') as outfile:
+            for tf in temp_files:
+                if Path(tf).exists():
+                    with open(tf, 'rb') as infile:
+                        outfile.write(infile.read())
+                        
+    finally:
+        # Cleanup temporary audio files
+        for tf in temp_files:
+            try:
+                if Path(tf).exists():
+                    Path(tf).unlink()
+            except Exception as e:
+                logger.error(f"[TTS] Failed to clean up temp file {tf}: {e}")
+
+    # Optionally refine if tools are available
     if shutil.which("ffmpeg") and shutil.which("ffprobe"):
         refine_audio(output_path)
     else:

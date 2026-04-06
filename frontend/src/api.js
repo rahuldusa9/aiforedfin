@@ -9,16 +9,16 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 
 const api = axios.create({
   baseURL: API_BASE,
-  timeout: 120000, // 2 minutes for AI generation
+  timeout: 480000, // 8 minutes for AI generation
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Extended timeout instance for long operations (story generation, batch)
+// Extended timeout instance for long operations (story generation, batch) 
 const apiLong = axios.create({
   baseURL: API_BASE,
-  timeout: 300000, // 5 minutes for multilingual/batch operations
+  timeout: 900000, // 15 minutes for multilingual/batch operations
   headers: {
     'Content-Type': 'application/json',
   },
@@ -72,16 +72,17 @@ export const loginUser = (data) => api.post('/api/auth/login', data);
 export const getDashboardStats = (userId) => api.get(`/api/dashboard/stats/${userId}`);
 
 // Podcast
-export const generatePodcast = (topic) => api.post('/api/podcast/generate', { topic });
+export const generatePodcast = (topic, language = 'en', length = 'medium') => api.post('/api/podcast/generate', { topic, language, length });
 
 // Quiz
-export const generateQuiz = (topic, numQuestions, difficulty) =>
-  api.post('/api/quiz/generate', { topic, num_questions: numQuestions, difficulty });
+export const generateQuiz = (topic, numQuestions, difficulty, content) =>
+  api.post('/api/quiz/generate', { topic, num_questions: numQuestions, difficulty, content });
 export const submitQuiz = (data) => api.post('/api/quiz/submit', data);
 export const getQuizHistory = (userId) => api.get(`/api/quiz/history/${userId}`);
 
-// Story (Basic - English)
-export const generateStory = (topic) => apiLong.post('/api/story/generate', { topic });
+// Story (Multilingual Options)
+export const getStoryLanguages = () => api.get('/api/story/languages');
+export const generateStory = (topic, wordCount = 400) => api.post('/api/story/generate', { topic, wordCount });
 
 // Story (Multilingual with Prosody)
 export const generateMultilingualStory = (options) =>
@@ -105,7 +106,7 @@ export const generateBatchStories = (options) =>
     include_audio: options.includeAudio || false,
   });
 
-export const getStoryLanguages = () => api.get('/api/story/languages');
+
 export const getStoryVoices = (language) => api.get(`/api/story/voices/${language}`);
 export const getStoryGenres = () => api.get('/api/story/genres');
 export const getStoryAgeGroups = () => api.get('/api/story/age-groups');

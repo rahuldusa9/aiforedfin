@@ -8,7 +8,7 @@
 
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#6366f1" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="AI Edu" />
     <link rel="manifest" href="/manifest.json" />
@@ -27,6 +27,12 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
+          if (window.location.hostname === 'localhost') {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for(let reg of regs) { reg.unregister(); }
+            });
+          }
+          
           navigator.serviceWorker.register('/sw.js')
             .then((registration) => {
               console.log('[App] Service Worker registered:', registration.scope);

@@ -47,364 +47,559 @@ class VoiceProfile:
 # Comprehensive Multilingual Voice Database
 # -------------------------------------------------------
 MULTILINGUAL_VOICES = {
-    # ============== ENGLISH ==============
-    "en": {
-        "default": "en-US-AriaNeural",
-        "voices": [
-            VoiceProfile("en-US-AriaNeural", "en-US", "English (US)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Warm, expressive narrator"),
-            VoiceProfile("en-US-JennyNeural", "en-US", "English (US)", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly conversational"),
-            VoiceProfile("en-US-GuyNeural", "en-US", "English (US)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Professional male voice"),
-            VoiceProfile("en-US-DavisNeural", "en-US", "English (US)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Expressive storyteller"),
-            VoiceProfile("en-US-AnaNeural", "en-US", "English (US)", VoiceGender.FEMALE, VoiceStyle.CHILD, "Young, friendly voice"),
-            VoiceProfile("en-GB-SoniaNeural", "en-GB", "English (UK)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "British narrator"),
-            VoiceProfile("en-GB-RyanNeural", "en-GB", "English (UK)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "British professional"),
-            VoiceProfile("en-AU-NatashaNeural", "en-AU", "English (AU)", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Australian friendly"),
-            VoiceProfile("en-IN-NeerjaNeural", "en-IN", "English (India)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Indian English teacher"),
-        ]
-    },
-
-    # ============== SPANISH ==============
-    "es": {
-        "default": "es-ES-ElviraNeural",
-        "voices": [
-            VoiceProfile("es-ES-ElviraNeural", "es-ES", "Spanish (Spain)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Castilian narrator"),
-            VoiceProfile("es-ES-AlvaroNeural", "es-ES", "Spanish (Spain)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Spanish storyteller"),
-            VoiceProfile("es-MX-DaliaNeural", "es-MX", "Spanish (Mexico)", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Mexican friendly"),
-            VoiceProfile("es-MX-JorgeNeural", "es-MX", "Spanish (Mexico)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Mexican professional"),
-            VoiceProfile("es-AR-ElenaNeural", "es-AR", "Spanish (Argentina)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Argentine narrator"),
-            VoiceProfile("es-CO-SalomeNeural", "es-CO", "Spanish (Colombia)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Colombian teacher"),
-        ]
-    },
-
-    # ============== FRENCH ==============
-    "fr": {
-        "default": "fr-FR-DeniseNeural",
-        "voices": [
-            VoiceProfile("fr-FR-DeniseNeural", "fr-FR", "French (France)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "French narrator"),
-            VoiceProfile("fr-FR-HenriNeural", "fr-FR", "French (France)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "French storyteller"),
-            VoiceProfile("fr-CA-SylvieNeural", "fr-CA", "French (Canada)", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Québécois friendly"),
-            VoiceProfile("fr-CA-JeanNeural", "fr-CA", "French (Canada)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Québécois professional"),
-            VoiceProfile("fr-BE-CharlineNeural", "fr-BE", "French (Belgium)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Belgian French"),
-        ]
-    },
-
-    # ============== GERMAN ==============
-    "de": {
-        "default": "de-DE-KatjaNeural",
-        "voices": [
-            VoiceProfile("de-DE-KatjaNeural", "de-DE", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "German narrator"),
-            VoiceProfile("de-DE-ConradNeural", "de-DE", "German", VoiceGender.MALE, VoiceStyle.STORYTELLER, "German storyteller"),
-            VoiceProfile("de-DE-AmalaNeural", "de-DE", "German", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly German"),
-            VoiceProfile("de-AT-IngridNeural", "de-AT", "German (Austria)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Austrian German"),
-            VoiceProfile("de-CH-LeniNeural", "de-CH", "German (Swiss)", VoiceGender.FEMALE, VoiceStyle.PROFESSIONAL, "Swiss German"),
-        ]
-    },
-
-    # ============== PORTUGUESE ==============
-    "pt": {
-        "default": "pt-BR-FranciscaNeural",
-        "voices": [
-            VoiceProfile("pt-BR-FranciscaNeural", "pt-BR", "Portuguese (Brazil)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Brazilian narrator"),
-            VoiceProfile("pt-BR-AntonioNeural", "pt-BR", "Portuguese (Brazil)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Brazilian storyteller"),
-            VoiceProfile("pt-PT-RaquelNeural", "pt-PT", "Portuguese (Portugal)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "European Portuguese"),
-            VoiceProfile("pt-PT-DuarteNeural", "pt-PT", "Portuguese (Portugal)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Portuguese professional"),
-        ]
-    },
-
-    # ============== ITALIAN ==============
-    "it": {
-        "default": "it-IT-ElsaNeural",
-        "voices": [
-            VoiceProfile("it-IT-ElsaNeural", "it-IT", "Italian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Italian narrator"),
-            VoiceProfile("it-IT-IsabellaNeural", "it-IT", "Italian", VoiceGender.FEMALE, VoiceStyle.STORYTELLER, "Italian storyteller"),
-            VoiceProfile("it-IT-DiegoNeural", "it-IT", "Italian", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Italian professional"),
-            VoiceProfile("it-IT-BenignoNeural", "it-IT", "Italian", VoiceGender.MALE, VoiceStyle.FRIENDLY, "Friendly Italian"),
-        ]
-    },
-
-    # ============== CHINESE ==============
-    "zh": {
-        "default": "zh-CN-XiaoxiaoNeural",
-        "voices": [
-            VoiceProfile("zh-CN-XiaoxiaoNeural", "zh-CN", "Chinese (Mandarin)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Mandarin narrator"),
-            VoiceProfile("zh-CN-YunxiNeural", "zh-CN", "Chinese (Mandarin)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Mandarin storyteller"),
-            VoiceProfile("zh-CN-XiaohanNeural", "zh-CN", "Chinese (Mandarin)", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly Mandarin"),
-            VoiceProfile("zh-CN-YunyangNeural", "zh-CN", "Chinese (Mandarin)", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Professional Mandarin"),
-            VoiceProfile("zh-TW-HsiaoChenNeural", "zh-TW", "Chinese (Taiwan)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Taiwanese Mandarin"),
-            VoiceProfile("zh-HK-HiuGaaiNeural", "zh-HK", "Chinese (Cantonese)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Cantonese narrator"),
-        ]
-    },
-
-    # ============== JAPANESE ==============
-    "ja": {
-        "default": "ja-JP-NanamiNeural",
-        "voices": [
-            VoiceProfile("ja-JP-NanamiNeural", "ja-JP", "Japanese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Japanese narrator"),
-            VoiceProfile("ja-JP-KeitaNeural", "ja-JP", "Japanese", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Japanese storyteller"),
-            VoiceProfile("ja-JP-AoiNeural", "ja-JP", "Japanese", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly Japanese"),
-            VoiceProfile("ja-JP-DaichiNeural", "ja-JP", "Japanese", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Professional Japanese"),
-        ]
-    },
-
-    # ============== KOREAN ==============
-    "ko": {
-        "default": "ko-KR-SunHiNeural",
-        "voices": [
-            VoiceProfile("ko-KR-SunHiNeural", "ko-KR", "Korean", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Korean narrator"),
-            VoiceProfile("ko-KR-InJoonNeural", "ko-KR", "Korean", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Korean storyteller"),
-            VoiceProfile("ko-KR-YuJinNeural", "ko-KR", "Korean", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly Korean"),
-            VoiceProfile("ko-KR-BongJinNeural", "ko-KR", "Korean", VoiceGender.MALE, VoiceStyle.PROFESSIONAL, "Professional Korean"),
-        ]
-    },
-
-    # ============== HINDI ==============
-    "hi": {
-        "default": "hi-IN-SwaraNeural",
-        "voices": [
-            VoiceProfile("hi-IN-SwaraNeural", "hi-IN", "Hindi", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Hindi narrator"),
-            VoiceProfile("hi-IN-MadhurNeural", "hi-IN", "Hindi", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Hindi storyteller"),
-        ]
-    },
-
-    # ============== ARABIC ==============
-    "ar": {
-        "default": "ar-SA-ZariyahNeural",
-        "voices": [
-            VoiceProfile("ar-SA-ZariyahNeural", "ar-SA", "Arabic (Saudi)", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Arabic narrator"),
-            VoiceProfile("ar-SA-HamedNeural", "ar-SA", "Arabic (Saudi)", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Arabic storyteller"),
-            VoiceProfile("ar-EG-SalmaNeural", "ar-EG", "Arabic (Egypt)", VoiceGender.FEMALE, VoiceStyle.TEACHER, "Egyptian Arabic"),
-            VoiceProfile("ar-AE-FatimaNeural", "ar-AE", "Arabic (UAE)", VoiceGender.FEMALE, VoiceStyle.PROFESSIONAL, "Emirati Arabic"),
-        ]
-    },
-
-    # ============== RUSSIAN ==============
-    "ru": {
-        "default": "ru-RU-SvetlanaNeural",
-        "voices": [
-            VoiceProfile("ru-RU-SvetlanaNeural", "ru-RU", "Russian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Russian narrator"),
-            VoiceProfile("ru-RU-DmitryNeural", "ru-RU", "Russian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Russian storyteller"),
-            VoiceProfile("ru-RU-DariyaNeural", "ru-RU", "Russian", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly Russian"),
-        ]
-    },
-
-    # ============== DUTCH ==============
-    "nl": {
-        "default": "nl-NL-ColetteNeural",
-        "voices": [
-            VoiceProfile("nl-NL-ColetteNeural", "nl-NL", "Dutch", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Dutch narrator"),
-            VoiceProfile("nl-NL-MaartenNeural", "nl-NL", "Dutch", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Dutch storyteller"),
-            VoiceProfile("nl-BE-ArnaudNeural", "nl-BE", "Dutch (Belgium)", VoiceGender.MALE, VoiceStyle.TEACHER, "Flemish Dutch"),
-        ]
-    },
-
-    # ============== POLISH ==============
-    "pl": {
-        "default": "pl-PL-AgnieszkaNeural",
-        "voices": [
-            VoiceProfile("pl-PL-AgnieszkaNeural", "pl-PL", "Polish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Polish narrator"),
-            VoiceProfile("pl-PL-MarekNeural", "pl-PL", "Polish", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Polish storyteller"),
-            VoiceProfile("pl-PL-ZofiaNeural", "pl-PL", "Polish", VoiceGender.FEMALE, VoiceStyle.FRIENDLY, "Friendly Polish"),
-        ]
-    },
-
-    # ============== TURKISH ==============
-    "tr": {
-        "default": "tr-TR-EmelNeural",
-        "voices": [
-            VoiceProfile("tr-TR-EmelNeural", "tr-TR", "Turkish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Turkish narrator"),
-            VoiceProfile("tr-TR-AhmetNeural", "tr-TR", "Turkish", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Turkish storyteller"),
-        ]
-    },
-
-    # ============== VIETNAMESE ==============
-    "vi": {
-        "default": "vi-VN-HoaiMyNeural",
-        "voices": [
-            VoiceProfile("vi-VN-HoaiMyNeural", "vi-VN", "Vietnamese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Vietnamese narrator"),
-            VoiceProfile("vi-VN-NamMinhNeural", "vi-VN", "Vietnamese", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Vietnamese storyteller"),
-        ]
-    },
-
-    # ============== THAI ==============
-    "th": {
-        "default": "th-TH-PremwadeeNeural",
-        "voices": [
-            VoiceProfile("th-TH-PremwadeeNeural", "th-TH", "Thai", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Thai narrator"),
-            VoiceProfile("th-TH-NiwatNeural", "th-TH", "Thai", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Thai storyteller"),
-        ]
-    },
-
-    # ============== INDONESIAN ==============
-    "id": {
-        "default": "id-ID-GadisNeural",
-        "voices": [
-            VoiceProfile("id-ID-GadisNeural", "id-ID", "Indonesian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Indonesian narrator"),
-            VoiceProfile("id-ID-ArdiNeural", "id-ID", "Indonesian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Indonesian storyteller"),
-        ]
-    },
-
-    # ============== MALAY ==============
-    "ms": {
-        "default": "ms-MY-YasminNeural",
-        "voices": [
-            VoiceProfile("ms-MY-YasminNeural", "ms-MY", "Malay", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Malay narrator"),
-            VoiceProfile("ms-MY-OsmanNeural", "ms-MY", "Malay", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Malay storyteller"),
-        ]
-    },
-
-    # ============== SWEDISH ==============
-    "sv": {
-        "default": "sv-SE-SofieNeural",
-        "voices": [
-            VoiceProfile("sv-SE-SofieNeural", "sv-SE", "Swedish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Swedish narrator"),
-            VoiceProfile("sv-SE-MattiasNeural", "sv-SE", "Swedish", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Swedish storyteller"),
-        ]
-    },
-
-    # ============== DANISH ==============
-    "da": {
-        "default": "da-DK-ChristelNeural",
-        "voices": [
-            VoiceProfile("da-DK-ChristelNeural", "da-DK", "Danish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Danish narrator"),
-            VoiceProfile("da-DK-JeppeNeural", "da-DK", "Danish", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Danish storyteller"),
-        ]
-    },
-
-    # ============== NORWEGIAN ==============
-    "no": {
-        "default": "nb-NO-PernilleNeural",
-        "voices": [
-            VoiceProfile("nb-NO-PernilleNeural", "nb-NO", "Norwegian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Norwegian narrator"),
-            VoiceProfile("nb-NO-FinnNeural", "nb-NO", "Norwegian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Norwegian storyteller"),
-        ]
-    },
-
-    # ============== FINNISH ==============
-    "fi": {
-        "default": "fi-FI-NooraNeural",
-        "voices": [
-            VoiceProfile("fi-FI-NooraNeural", "fi-FI", "Finnish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Finnish narrator"),
-            VoiceProfile("fi-FI-HarriNeural", "fi-FI", "Finnish", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Finnish storyteller"),
-        ]
-    },
-
-    # ============== GREEK ==============
-    "el": {
-        "default": "el-GR-AthinaNeural",
-        "voices": [
-            VoiceProfile("el-GR-AthinaNeural", "el-GR", "Greek", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Greek narrator"),
-            VoiceProfile("el-GR-NestorNeural", "el-GR", "Greek", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Greek storyteller"),
-        ]
-    },
-
-    # ============== HEBREW ==============
-    "he": {
-        "default": "he-IL-HilaNeural",
-        "voices": [
-            VoiceProfile("he-IL-HilaNeural", "he-IL", "Hebrew", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Hebrew narrator"),
-            VoiceProfile("he-IL-AvriNeural", "he-IL", "Hebrew", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Hebrew storyteller"),
-        ]
-    },
-
-    # ============== CZECH ==============
-    "cs": {
-        "default": "cs-CZ-VlastaNeural",
-        "voices": [
-            VoiceProfile("cs-CZ-VlastaNeural", "cs-CZ", "Czech", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Czech narrator"),
-            VoiceProfile("cs-CZ-AntoninNeural", "cs-CZ", "Czech", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Czech storyteller"),
-        ]
-    },
-
-    # ============== HUNGARIAN ==============
-    "hu": {
-        "default": "hu-HU-NoemiNeural",
-        "voices": [
-            VoiceProfile("hu-HU-NoemiNeural", "hu-HU", "Hungarian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Hungarian narrator"),
-            VoiceProfile("hu-HU-TamasNeural", "hu-HU", "Hungarian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Hungarian storyteller"),
-        ]
-    },
-
-    # ============== ROMANIAN ==============
-    "ro": {
-        "default": "ro-RO-AlinaNeural",
-        "voices": [
-            VoiceProfile("ro-RO-AlinaNeural", "ro-RO", "Romanian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Romanian narrator"),
-            VoiceProfile("ro-RO-EmilNeural", "ro-RO", "Romanian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Romanian storyteller"),
-        ]
-    },
-
-    # ============== UKRAINIAN ==============
-    "uk": {
-        "default": "uk-UA-PolinaNeural",
-        "voices": [
-            VoiceProfile("uk-UA-PolinaNeural", "uk-UA", "Ukrainian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Ukrainian narrator"),
-            VoiceProfile("uk-UA-OstapNeural", "uk-UA", "Ukrainian", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Ukrainian storyteller"),
-        ]
-    },
-
-    # ============== TAMIL ==============
-    "ta": {
-        "default": "ta-IN-PallaviNeural",
-        "voices": [
-            VoiceProfile("ta-IN-PallaviNeural", "ta-IN", "Tamil", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Tamil narrator"),
-            VoiceProfile("ta-IN-ValluvarNeural", "ta-IN", "Tamil", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Tamil storyteller"),
-        ]
-    },
-
-    # ============== TELUGU ==============
-    "te": {
-        "default": "te-IN-ShrutiNeural",
-        "voices": [
-            VoiceProfile("te-IN-ShrutiNeural", "te-IN", "Telugu", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Telugu narrator"),
-            VoiceProfile("te-IN-MohanNeural", "te-IN", "Telugu", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Telugu storyteller"),
-        ]
-    },
-
-    # ============== BENGALI ==============
-    "bn": {
-        "default": "bn-IN-TanishaaNeural",
-        "voices": [
-            VoiceProfile("bn-IN-TanishaaNeural", "bn-IN", "Bengali", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "Bengali narrator"),
-            VoiceProfile("bn-IN-BashkarNeural", "bn-IN", "Bengali", VoiceGender.MALE, VoiceStyle.STORYTELLER, "Bengali storyteller"),
-        ]
-    },
+  "af": {"default": "af-ZA-AdriNeural", "voices": [
+    VoiceProfile("af-ZA-AdriNeural", "af-ZA", "Afrikaans", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "af-ZA-AdriNeural"),
+    VoiceProfile("af-ZA-WillemNeural", "af-ZA", "Afrikaans", VoiceGender.MALE, VoiceStyle.NARRATOR, "af-ZA-WillemNeural"),
+  ]},
+  "sq": {"default": "sq-AL-AnilaNeural", "voices": [
+    VoiceProfile("sq-AL-AnilaNeural", "sq-AL", "Albanian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sq-AL-AnilaNeural"),
+    VoiceProfile("sq-AL-IlirNeural", "sq-AL", "Albanian", VoiceGender.MALE, VoiceStyle.NARRATOR, "sq-AL-IlirNeural"),
+  ]},
+  "am": {"default": "am-ET-AmehaNeural", "voices": [
+    VoiceProfile("am-ET-AmehaNeural", "am-ET", "Amharic", VoiceGender.MALE, VoiceStyle.NARRATOR, "am-ET-AmehaNeural"),
+    VoiceProfile("am-ET-MekdesNeural", "am-ET", "Amharic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "am-ET-MekdesNeural"),
+  ]},
+  "ar": {"default": "ar-DZ-AminaNeural", "voices": [
+    VoiceProfile("ar-DZ-AminaNeural", "ar-DZ", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-DZ-AminaNeural"),
+    VoiceProfile("ar-DZ-IsmaelNeural", "ar-DZ", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-DZ-IsmaelNeural"),
+    VoiceProfile("ar-BH-AliNeural", "ar-BH", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-BH-AliNeural"),
+    VoiceProfile("ar-BH-LailaNeural", "ar-BH", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-BH-LailaNeural"),
+    VoiceProfile("ar-EG-SalmaNeural", "ar-EG", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-EG-SalmaNeural"),
+    VoiceProfile("ar-EG-ShakirNeural", "ar-EG", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-EG-ShakirNeural"),
+    VoiceProfile("ar-IQ-BasselNeural", "ar-IQ", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-IQ-BasselNeural"),
+    VoiceProfile("ar-IQ-RanaNeural", "ar-IQ", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-IQ-RanaNeural"),
+    VoiceProfile("ar-JO-SanaNeural", "ar-JO", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-JO-SanaNeural"),
+    VoiceProfile("ar-JO-TaimNeural", "ar-JO", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-JO-TaimNeural"),
+    VoiceProfile("ar-KW-FahedNeural", "ar-KW", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-KW-FahedNeural"),
+    VoiceProfile("ar-KW-NouraNeural", "ar-KW", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-KW-NouraNeural"),
+    VoiceProfile("ar-LB-LaylaNeural", "ar-LB", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-LB-LaylaNeural"),
+    VoiceProfile("ar-LB-RamiNeural", "ar-LB", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-LB-RamiNeural"),
+    VoiceProfile("ar-LY-ImanNeural", "ar-LY", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-LY-ImanNeural"),
+    VoiceProfile("ar-LY-OmarNeural", "ar-LY", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-LY-OmarNeural"),
+    VoiceProfile("ar-MA-JamalNeural", "ar-MA", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-MA-JamalNeural"),
+    VoiceProfile("ar-MA-MounaNeural", "ar-MA", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-MA-MounaNeural"),
+    VoiceProfile("ar-OM-AbdullahNeural", "ar-OM", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-OM-AbdullahNeural"),
+    VoiceProfile("ar-OM-AyshaNeural", "ar-OM", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-OM-AyshaNeural"),
+    VoiceProfile("ar-QA-AmalNeural", "ar-QA", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-QA-AmalNeural"),
+    VoiceProfile("ar-QA-MoazNeural", "ar-QA", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-QA-MoazNeural"),
+    VoiceProfile("ar-SA-HamedNeural", "ar-SA", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-SA-HamedNeural"),
+    VoiceProfile("ar-SA-ZariyahNeural", "ar-SA", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-SA-ZariyahNeural"),
+    VoiceProfile("ar-SY-AmanyNeural", "ar-SY", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-SY-AmanyNeural"),
+    VoiceProfile("ar-SY-LaithNeural", "ar-SY", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-SY-LaithNeural"),
+    VoiceProfile("ar-TN-HediNeural", "ar-TN", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-TN-HediNeural"),
+    VoiceProfile("ar-TN-ReemNeural", "ar-TN", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-TN-ReemNeural"),
+    VoiceProfile("ar-AE-FatimaNeural", "ar-AE", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-AE-FatimaNeural"),
+    VoiceProfile("ar-AE-HamdanNeural", "ar-AE", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-AE-HamdanNeural"),
+    VoiceProfile("ar-YE-MaryamNeural", "ar-YE", "Arabic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ar-YE-MaryamNeural"),
+    VoiceProfile("ar-YE-SalehNeural", "ar-YE", "Arabic", VoiceGender.MALE, VoiceStyle.NARRATOR, "ar-YE-SalehNeural"),
+  ]},
+  "az": {"default": "az-AZ-BabekNeural", "voices": [
+    VoiceProfile("az-AZ-BabekNeural", "az-AZ", "Azerbaijani", VoiceGender.MALE, VoiceStyle.NARRATOR, "az-AZ-BabekNeural"),
+    VoiceProfile("az-AZ-BanuNeural", "az-AZ", "Azerbaijani", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "az-AZ-BanuNeural"),
+  ]},
+  "bn": {"default": "bn-BD-NabanitaNeural", "voices": [
+    VoiceProfile("bn-BD-NabanitaNeural", "bn-BD", "Bangla", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "bn-BD-NabanitaNeural"),
+    VoiceProfile("bn-BD-PradeepNeural", "bn-BD", "Bangla", VoiceGender.MALE, VoiceStyle.NARRATOR, "bn-BD-PradeepNeural"),
+    VoiceProfile("bn-IN-BashkarNeural", "bn-IN", "Bangla", VoiceGender.MALE, VoiceStyle.NARRATOR, "bn-IN-BashkarNeural"),
+    VoiceProfile("bn-IN-TanishaaNeural", "bn-IN", "Bengali", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "bn-IN-TanishaaNeural"),
+  ]},
+  "bs": {"default": "bs-BA-VesnaNeural", "voices": [
+    VoiceProfile("bs-BA-VesnaNeural", "bs-BA", "Bosnian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "bs-BA-VesnaNeural"),
+    VoiceProfile("bs-BA-GoranNeural", "bs-BA", "Bosnian", VoiceGender.MALE, VoiceStyle.NARRATOR, "bs-BA-GoranNeural"),
+  ]},
+  "bg": {"default": "bg-BG-BorislavNeural", "voices": [
+    VoiceProfile("bg-BG-BorislavNeural", "bg-BG", "Bulgarian", VoiceGender.MALE, VoiceStyle.NARRATOR, "bg-BG-BorislavNeural"),
+    VoiceProfile("bg-BG-KalinaNeural", "bg-BG", "Bulgarian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "bg-BG-KalinaNeural"),
+  ]},
+  "my": {"default": "my-MM-NilarNeural", "voices": [
+    VoiceProfile("my-MM-NilarNeural", "my-MM", "Burmese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "my-MM-NilarNeural"),
+    VoiceProfile("my-MM-ThihaNeural", "my-MM", "Burmese", VoiceGender.MALE, VoiceStyle.NARRATOR, "my-MM-ThihaNeural"),
+  ]},
+  "ca": {"default": "ca-ES-EnricNeural", "voices": [
+    VoiceProfile("ca-ES-EnricNeural", "ca-ES", "Catalan", VoiceGender.MALE, VoiceStyle.NARRATOR, "ca-ES-EnricNeural"),
+    VoiceProfile("ca-ES-JoanaNeural", "ca-ES", "Catalan", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ca-ES-JoanaNeural"),
+  ]},
+  "zh": {"default": "zh-HK-HiuGaaiNeural", "voices": [
+    VoiceProfile("zh-HK-HiuGaaiNeural", "zh-HK", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-HK-HiuGaaiNeural"),
+    VoiceProfile("zh-HK-HiuMaanNeural", "zh-HK", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-HK-HiuMaanNeural"),
+    VoiceProfile("zh-HK-WanLungNeural", "zh-HK", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-HK-WanLungNeural"),
+    VoiceProfile("zh-CN-XiaoxiaoNeural", "zh-CN", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-CN-XiaoxiaoNeural"),
+    VoiceProfile("zh-CN-XiaoyiNeural", "zh-CN", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-CN-XiaoyiNeural"),
+    VoiceProfile("zh-CN-YunjianNeural", "zh-CN", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-CN-YunjianNeural"),
+    VoiceProfile("zh-CN-YunxiNeural", "zh-CN", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-CN-YunxiNeural"),
+    VoiceProfile("zh-CN-YunxiaNeural", "zh-CN", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-CN-YunxiaNeural"),
+    VoiceProfile("zh-CN-YunyangNeural", "zh-CN", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-CN-YunyangNeural"),
+    VoiceProfile("zh-CN-liaoning-XiaobeiNeural", "zh-CN-liaoning", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-CN-liaoning-XiaobeiNeural"),
+    VoiceProfile("zh-TW-HsiaoChenNeural", "zh-TW", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-TW-HsiaoChenNeural"),
+    VoiceProfile("zh-TW-YunJheNeural", "zh-TW", "Chinese", VoiceGender.MALE, VoiceStyle.NARRATOR, "zh-TW-YunJheNeural"),
+    VoiceProfile("zh-TW-HsiaoYuNeural", "zh-TW", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-TW-HsiaoYuNeural"),
+    VoiceProfile("zh-CN-shaanxi-XiaoniNeural", "zh-CN-shaanxi", "Chinese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zh-CN-shaanxi-XiaoniNeural"),
+  ]},
+  "hr": {"default": "hr-HR-GabrijelaNeural", "voices": [
+    VoiceProfile("hr-HR-GabrijelaNeural", "hr-HR", "Croatian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "hr-HR-GabrijelaNeural"),
+    VoiceProfile("hr-HR-SreckoNeural", "hr-HR", "Croatian", VoiceGender.MALE, VoiceStyle.NARRATOR, "hr-HR-SreckoNeural"),
+  ]},
+  "cs": {"default": "cs-CZ-AntoninNeural", "voices": [
+    VoiceProfile("cs-CZ-AntoninNeural", "cs-CZ", "Czech", VoiceGender.MALE, VoiceStyle.NARRATOR, "cs-CZ-AntoninNeural"),
+    VoiceProfile("cs-CZ-VlastaNeural", "cs-CZ", "Czech", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "cs-CZ-VlastaNeural"),
+  ]},
+  "da": {"default": "da-DK-ChristelNeural", "voices": [
+    VoiceProfile("da-DK-ChristelNeural", "da-DK", "Danish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "da-DK-ChristelNeural"),
+    VoiceProfile("da-DK-JeppeNeural", "da-DK", "Danish", VoiceGender.MALE, VoiceStyle.NARRATOR, "da-DK-JeppeNeural"),
+  ]},
+  "nl": {"default": "nl-BE-ArnaudNeural", "voices": [
+    VoiceProfile("nl-BE-ArnaudNeural", "nl-BE", "Dutch", VoiceGender.MALE, VoiceStyle.NARRATOR, "nl-BE-ArnaudNeural"),
+    VoiceProfile("nl-BE-DenaNeural", "nl-BE", "Dutch", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "nl-BE-DenaNeural"),
+    VoiceProfile("nl-NL-ColetteNeural", "nl-NL", "Dutch", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "nl-NL-ColetteNeural"),
+    VoiceProfile("nl-NL-FennaNeural", "nl-NL", "Dutch", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "nl-NL-FennaNeural"),
+    VoiceProfile("nl-NL-MaartenNeural", "nl-NL", "Dutch", VoiceGender.MALE, VoiceStyle.NARRATOR, "nl-NL-MaartenNeural"),
+  ]},
+  "en": {"default": "en-AU-WilliamMultilingualNeural", "voices": [
+    VoiceProfile("en-AU-WilliamMultilingualNeural", "en-AU", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-AU-WilliamMultilingualNeural"),
+    VoiceProfile("en-AU-NatashaNeural", "en-AU", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-AU-NatashaNeural"),
+    VoiceProfile("en-CA-ClaraNeural", "en-CA", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-CA-ClaraNeural"),
+    VoiceProfile("en-CA-LiamNeural", "en-CA", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-CA-LiamNeural"),
+    VoiceProfile("en-HK-YanNeural", "en-HK", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-HK-YanNeural"),
+    VoiceProfile("en-HK-SamNeural", "en-HK", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-HK-SamNeural"),
+    VoiceProfile("en-IN-NeerjaExpressiveNeural", "en-IN", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-IN-NeerjaExpressiveNeural"),
+    VoiceProfile("en-IN-NeerjaNeural", "en-IN", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-IN-NeerjaNeural"),
+    VoiceProfile("en-IN-PrabhatNeural", "en-IN", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-IN-PrabhatNeural"),
+    VoiceProfile("en-IE-ConnorNeural", "en-IE", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-IE-ConnorNeural"),
+    VoiceProfile("en-IE-EmilyNeural", "en-IE", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-IE-EmilyNeural"),
+    VoiceProfile("en-KE-AsiliaNeural", "en-KE", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-KE-AsiliaNeural"),
+    VoiceProfile("en-KE-ChilembaNeural", "en-KE", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-KE-ChilembaNeural"),
+    VoiceProfile("en-NZ-MitchellNeural", "en-NZ", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-NZ-MitchellNeural"),
+    VoiceProfile("en-NZ-MollyNeural", "en-NZ", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-NZ-MollyNeural"),
+    VoiceProfile("en-NG-AbeoNeural", "en-NG", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-NG-AbeoNeural"),
+    VoiceProfile("en-NG-EzinneNeural", "en-NG", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-NG-EzinneNeural"),
+    VoiceProfile("en-PH-JamesNeural", "en-PH", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-PH-JamesNeural"),
+    VoiceProfile("en-PH-RosaNeural", "en-PH", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-PH-RosaNeural"),
+    VoiceProfile("en-US-AvaNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-AvaNeural"),
+    VoiceProfile("en-US-AndrewNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-AndrewNeural"),
+    VoiceProfile("en-US-EmmaNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-EmmaNeural"),
+    VoiceProfile("en-US-BrianNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-BrianNeural"),
+    VoiceProfile("en-SG-LunaNeural", "en-SG", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-SG-LunaNeural"),
+    VoiceProfile("en-SG-WayneNeural", "en-SG", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-SG-WayneNeural"),
+    VoiceProfile("en-ZA-LeahNeural", "en-ZA", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-ZA-LeahNeural"),
+    VoiceProfile("en-ZA-LukeNeural", "en-ZA", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-ZA-LukeNeural"),
+    VoiceProfile("en-TZ-ElimuNeural", "en-TZ", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-TZ-ElimuNeural"),
+    VoiceProfile("en-TZ-ImaniNeural", "en-TZ", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-TZ-ImaniNeural"),
+    VoiceProfile("en-GB-LibbyNeural", "en-GB", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-GB-LibbyNeural"),
+    VoiceProfile("en-GB-MaisieNeural", "en-GB", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-GB-MaisieNeural"),
+    VoiceProfile("en-GB-RyanNeural", "en-GB", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-GB-RyanNeural"),
+    VoiceProfile("en-GB-SoniaNeural", "en-GB", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-GB-SoniaNeural"),
+    VoiceProfile("en-GB-ThomasNeural", "en-GB", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-GB-ThomasNeural"),
+    VoiceProfile("en-US-AnaNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-AnaNeural"),
+    VoiceProfile("en-US-AndrewMultilingualNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-AndrewMultilingualNeural"),
+    VoiceProfile("en-US-AriaNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-AriaNeural"),
+    VoiceProfile("en-US-AvaMultilingualNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-AvaMultilingualNeural"),
+    VoiceProfile("en-US-BrianMultilingualNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-BrianMultilingualNeural"),
+    VoiceProfile("en-US-ChristopherNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-ChristopherNeural"),
+    VoiceProfile("en-US-EmmaMultilingualNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-EmmaMultilingualNeural"),
+    VoiceProfile("en-US-EricNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-EricNeural"),
+    VoiceProfile("en-US-GuyNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-GuyNeural"),
+    VoiceProfile("en-US-JennyNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-JennyNeural"),
+    VoiceProfile("en-US-MichelleNeural", "en-US", "English", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "en-US-MichelleNeural"),
+    VoiceProfile("en-US-RogerNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-RogerNeural"),
+    VoiceProfile("en-US-SteffanNeural", "en-US", "English", VoiceGender.MALE, VoiceStyle.NARRATOR, "en-US-SteffanNeural"),
+  ]},
+  "et": {"default": "et-EE-AnuNeural", "voices": [
+    VoiceProfile("et-EE-AnuNeural", "et-EE", "Estonian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "et-EE-AnuNeural"),
+    VoiceProfile("et-EE-KertNeural", "et-EE", "Estonian", VoiceGender.MALE, VoiceStyle.NARRATOR, "et-EE-KertNeural"),
+  ]},
+  "fil": {"default": "fil-PH-AngeloNeural", "voices": [
+    VoiceProfile("fil-PH-AngeloNeural", "fil-PH", "Filipino", VoiceGender.MALE, VoiceStyle.NARRATOR, "fil-PH-AngeloNeural"),
+    VoiceProfile("fil-PH-BlessicaNeural", "fil-PH", "Filipino", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fil-PH-BlessicaNeural"),
+  ]},
+  "fi": {"default": "fi-FI-HarriNeural", "voices": [
+    VoiceProfile("fi-FI-HarriNeural", "fi-FI", "Finnish", VoiceGender.MALE, VoiceStyle.NARRATOR, "fi-FI-HarriNeural"),
+    VoiceProfile("fi-FI-NooraNeural", "fi-FI", "Finnish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fi-FI-NooraNeural"),
+  ]},
+  "fr": {"default": "fr-BE-CharlineNeural", "voices": [
+    VoiceProfile("fr-BE-CharlineNeural", "fr-BE", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-BE-CharlineNeural"),
+    VoiceProfile("fr-BE-GerardNeural", "fr-BE", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-BE-GerardNeural"),
+    VoiceProfile("fr-CA-ThierryNeural", "fr-CA", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-CA-ThierryNeural"),
+    VoiceProfile("fr-CA-AntoineNeural", "fr-CA", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-CA-AntoineNeural"),
+    VoiceProfile("fr-CA-JeanNeural", "fr-CA", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-CA-JeanNeural"),
+    VoiceProfile("fr-CA-SylvieNeural", "fr-CA", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-CA-SylvieNeural"),
+    VoiceProfile("fr-FR-VivienneMultilingualNeural", "fr-FR", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-FR-VivienneMultilingualNeural"),
+    VoiceProfile("fr-FR-RemyMultilingualNeural", "fr-FR", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-FR-RemyMultilingualNeural"),
+    VoiceProfile("fr-FR-DeniseNeural", "fr-FR", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-FR-DeniseNeural"),
+    VoiceProfile("fr-FR-EloiseNeural", "fr-FR", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-FR-EloiseNeural"),
+    VoiceProfile("fr-FR-HenriNeural", "fr-FR", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-FR-HenriNeural"),
+    VoiceProfile("fr-CH-ArianeNeural", "fr-CH", "French", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fr-CH-ArianeNeural"),
+    VoiceProfile("fr-CH-FabriceNeural", "fr-CH", "French", VoiceGender.MALE, VoiceStyle.NARRATOR, "fr-CH-FabriceNeural"),
+  ]},
+  "gl": {"default": "gl-ES-RoiNeural", "voices": [
+    VoiceProfile("gl-ES-RoiNeural", "gl-ES", "Galician", VoiceGender.MALE, VoiceStyle.NARRATOR, "gl-ES-RoiNeural"),
+    VoiceProfile("gl-ES-SabelaNeural", "gl-ES", "Galician", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "gl-ES-SabelaNeural"),
+  ]},
+  "ka": {"default": "ka-GE-EkaNeural", "voices": [
+    VoiceProfile("ka-GE-EkaNeural", "ka-GE", "Georgian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ka-GE-EkaNeural"),
+    VoiceProfile("ka-GE-GiorgiNeural", "ka-GE", "Georgian", VoiceGender.MALE, VoiceStyle.NARRATOR, "ka-GE-GiorgiNeural"),
+  ]},
+  "de": {"default": "de-AT-IngridNeural", "voices": [
+    VoiceProfile("de-AT-IngridNeural", "de-AT", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "de-AT-IngridNeural"),
+    VoiceProfile("de-AT-JonasNeural", "de-AT", "German", VoiceGender.MALE, VoiceStyle.NARRATOR, "de-AT-JonasNeural"),
+    VoiceProfile("de-DE-SeraphinaMultilingualNeural", "de-DE", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "de-DE-SeraphinaMultilingualNeural"),
+    VoiceProfile("de-DE-FlorianMultilingualNeural", "de-DE", "German", VoiceGender.MALE, VoiceStyle.NARRATOR, "de-DE-FlorianMultilingualNeural"),
+    VoiceProfile("de-DE-AmalaNeural", "de-DE", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "de-DE-AmalaNeural"),
+    VoiceProfile("de-DE-ConradNeural", "de-DE", "German", VoiceGender.MALE, VoiceStyle.NARRATOR, "de-DE-ConradNeural"),
+    VoiceProfile("de-DE-KatjaNeural", "de-DE", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "de-DE-KatjaNeural"),
+    VoiceProfile("de-DE-KillianNeural", "de-DE", "German", VoiceGender.MALE, VoiceStyle.NARRATOR, "de-DE-KillianNeural"),
+    VoiceProfile("de-CH-JanNeural", "de-CH", "German", VoiceGender.MALE, VoiceStyle.NARRATOR, "de-CH-JanNeural"),
+    VoiceProfile("de-CH-LeniNeural", "de-CH", "German", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "de-CH-LeniNeural"),
+  ]},
+  "el": {"default": "el-GR-AthinaNeural", "voices": [
+    VoiceProfile("el-GR-AthinaNeural", "el-GR", "Greek", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "el-GR-AthinaNeural"),
+    VoiceProfile("el-GR-NestorasNeural", "el-GR", "Greek", VoiceGender.MALE, VoiceStyle.NARRATOR, "el-GR-NestorasNeural"),
+  ]},
+  "gu": {"default": "gu-IN-DhwaniNeural", "voices": [
+    VoiceProfile("gu-IN-DhwaniNeural", "gu-IN", "Gujarati", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "gu-IN-DhwaniNeural"),
+    VoiceProfile("gu-IN-NiranjanNeural", "gu-IN", "Gujarati", VoiceGender.MALE, VoiceStyle.NARRATOR, "gu-IN-NiranjanNeural"),
+  ]},
+  "he": {"default": "he-IL-AvriNeural", "voices": [
+    VoiceProfile("he-IL-AvriNeural", "he-IL", "Hebrew", VoiceGender.MALE, VoiceStyle.NARRATOR, "he-IL-AvriNeural"),
+    VoiceProfile("he-IL-HilaNeural", "he-IL", "Hebrew", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "he-IL-HilaNeural"),
+  ]},
+  "hi": {"default": "hi-IN-MadhurNeural", "voices": [
+    VoiceProfile("hi-IN-MadhurNeural", "hi-IN", "Hindi", VoiceGender.MALE, VoiceStyle.NARRATOR, "hi-IN-MadhurNeural"),
+    VoiceProfile("hi-IN-SwaraNeural", "hi-IN", "Hindi", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "hi-IN-SwaraNeural"),
+  ]},
+  "hu": {"default": "hu-HU-NoemiNeural", "voices": [
+    VoiceProfile("hu-HU-NoemiNeural", "hu-HU", "Hungarian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "hu-HU-NoemiNeural"),
+    VoiceProfile("hu-HU-TamasNeural", "hu-HU", "Hungarian", VoiceGender.MALE, VoiceStyle.NARRATOR, "hu-HU-TamasNeural"),
+  ]},
+  "is": {"default": "is-IS-GudrunNeural", "voices": [
+    VoiceProfile("is-IS-GudrunNeural", "is-IS", "Icelandic", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "is-IS-GudrunNeural"),
+    VoiceProfile("is-IS-GunnarNeural", "is-IS", "Icelandic", VoiceGender.MALE, VoiceStyle.NARRATOR, "is-IS-GunnarNeural"),
+  ]},
+  "id": {"default": "id-ID-ArdiNeural", "voices": [
+    VoiceProfile("id-ID-ArdiNeural", "id-ID", "Indonesian", VoiceGender.MALE, VoiceStyle.NARRATOR, "id-ID-ArdiNeural"),
+    VoiceProfile("id-ID-GadisNeural", "id-ID", "Indonesian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "id-ID-GadisNeural"),
+  ]},
+  "iu": {"default": "iu-Latn-CA-SiqiniqNeural", "voices": [
+    VoiceProfile("iu-Latn-CA-SiqiniqNeural", "iu-Latn-CA", "Inuktitut", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "iu-Latn-CA-SiqiniqNeural"),
+    VoiceProfile("iu-Latn-CA-TaqqiqNeural", "iu-Latn-CA", "Inuktitut", VoiceGender.MALE, VoiceStyle.NARRATOR, "iu-Latn-CA-TaqqiqNeural"),
+    VoiceProfile("iu-Cans-CA-SiqiniqNeural", "iu-Cans-CA", "Inuktitut", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "iu-Cans-CA-SiqiniqNeural"),
+    VoiceProfile("iu-Cans-CA-TaqqiqNeural", "iu-Cans-CA", "Inuktitut", VoiceGender.MALE, VoiceStyle.NARRATOR, "iu-Cans-CA-TaqqiqNeural"),
+  ]},
+  "ga": {"default": "ga-IE-ColmNeural", "voices": [
+    VoiceProfile("ga-IE-ColmNeural", "ga-IE", "Irish", VoiceGender.MALE, VoiceStyle.NARRATOR, "ga-IE-ColmNeural"),
+    VoiceProfile("ga-IE-OrlaNeural", "ga-IE", "Irish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ga-IE-OrlaNeural"),
+  ]},
+  "it": {"default": "it-IT-GiuseppeMultilingualNeural", "voices": [
+    VoiceProfile("it-IT-GiuseppeMultilingualNeural", "it-IT", "Italian", VoiceGender.MALE, VoiceStyle.NARRATOR, "it-IT-GiuseppeMultilingualNeural"),
+    VoiceProfile("it-IT-DiegoNeural", "it-IT", "Italian", VoiceGender.MALE, VoiceStyle.NARRATOR, "it-IT-DiegoNeural"),
+    VoiceProfile("it-IT-ElsaNeural", "it-IT", "Italian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "it-IT-ElsaNeural"),
+    VoiceProfile("it-IT-IsabellaNeural", "it-IT", "Italian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "it-IT-IsabellaNeural"),
+  ]},
+  "ja": {"default": "ja-JP-KeitaNeural", "voices": [
+    VoiceProfile("ja-JP-KeitaNeural", "ja-JP", "Japanese", VoiceGender.MALE, VoiceStyle.NARRATOR, "ja-JP-KeitaNeural"),
+    VoiceProfile("ja-JP-NanamiNeural", "ja-JP", "Japanese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ja-JP-NanamiNeural"),
+  ]},
+  "jv": {"default": "jv-ID-DimasNeural", "voices": [
+    VoiceProfile("jv-ID-DimasNeural", "jv-ID", "Javanese", VoiceGender.MALE, VoiceStyle.NARRATOR, "jv-ID-DimasNeural"),
+    VoiceProfile("jv-ID-SitiNeural", "jv-ID", "Javanese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "jv-ID-SitiNeural"),
+  ]},
+  "kn": {"default": "kn-IN-GaganNeural", "voices": [
+    VoiceProfile("kn-IN-GaganNeural", "kn-IN", "Kannada", VoiceGender.MALE, VoiceStyle.NARRATOR, "kn-IN-GaganNeural"),
+    VoiceProfile("kn-IN-SapnaNeural", "kn-IN", "Kannada", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "kn-IN-SapnaNeural"),
+  ]},
+  "kk": {"default": "kk-KZ-AigulNeural", "voices": [
+    VoiceProfile("kk-KZ-AigulNeural", "kk-KZ", "Kazakh", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "kk-KZ-AigulNeural"),
+    VoiceProfile("kk-KZ-DauletNeural", "kk-KZ", "Kazakh", VoiceGender.MALE, VoiceStyle.NARRATOR, "kk-KZ-DauletNeural"),
+  ]},
+  "km": {"default": "km-KH-PisethNeural", "voices": [
+    VoiceProfile("km-KH-PisethNeural", "km-KH", "Khmer", VoiceGender.MALE, VoiceStyle.NARRATOR, "km-KH-PisethNeural"),
+    VoiceProfile("km-KH-SreymomNeural", "km-KH", "Khmer", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "km-KH-SreymomNeural"),
+  ]},
+  "ko": {"default": "ko-KR-HyunsuMultilingualNeural", "voices": [
+    VoiceProfile("ko-KR-HyunsuMultilingualNeural", "ko-KR", "Korean", VoiceGender.MALE, VoiceStyle.NARRATOR, "ko-KR-HyunsuMultilingualNeural"),
+    VoiceProfile("ko-KR-InJoonNeural", "ko-KR", "Korean", VoiceGender.MALE, VoiceStyle.NARRATOR, "ko-KR-InJoonNeural"),
+    VoiceProfile("ko-KR-SunHiNeural", "ko-KR", "Korean", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ko-KR-SunHiNeural"),
+  ]},
+  "lo": {"default": "lo-LA-ChanthavongNeural", "voices": [
+    VoiceProfile("lo-LA-ChanthavongNeural", "lo-LA", "Lao", VoiceGender.MALE, VoiceStyle.NARRATOR, "lo-LA-ChanthavongNeural"),
+    VoiceProfile("lo-LA-KeomanyNeural", "lo-LA", "Lao", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "lo-LA-KeomanyNeural"),
+  ]},
+  "lv": {"default": "lv-LV-EveritaNeural", "voices": [
+    VoiceProfile("lv-LV-EveritaNeural", "lv-LV", "Latvian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "lv-LV-EveritaNeural"),
+    VoiceProfile("lv-LV-NilsNeural", "lv-LV", "Latvian", VoiceGender.MALE, VoiceStyle.NARRATOR, "lv-LV-NilsNeural"),
+  ]},
+  "lt": {"default": "lt-LT-LeonasNeural", "voices": [
+    VoiceProfile("lt-LT-LeonasNeural", "lt-LT", "Lithuanian", VoiceGender.MALE, VoiceStyle.NARRATOR, "lt-LT-LeonasNeural"),
+    VoiceProfile("lt-LT-OnaNeural", "lt-LT", "Lithuanian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "lt-LT-OnaNeural"),
+  ]},
+  "mk": {"default": "mk-MK-AleksandarNeural", "voices": [
+    VoiceProfile("mk-MK-AleksandarNeural", "mk-MK", "Macedonian", VoiceGender.MALE, VoiceStyle.NARRATOR, "mk-MK-AleksandarNeural"),
+    VoiceProfile("mk-MK-MarijaNeural", "mk-MK", "Macedonian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "mk-MK-MarijaNeural"),
+  ]},
+  "ms": {"default": "ms-MY-OsmanNeural", "voices": [
+    VoiceProfile("ms-MY-OsmanNeural", "ms-MY", "Malay", VoiceGender.MALE, VoiceStyle.NARRATOR, "ms-MY-OsmanNeural"),
+    VoiceProfile("ms-MY-YasminNeural", "ms-MY", "Malay", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ms-MY-YasminNeural"),
+  ]},
+  "ml": {"default": "ml-IN-MidhunNeural", "voices": [
+    VoiceProfile("ml-IN-MidhunNeural", "ml-IN", "Malayalam", VoiceGender.MALE, VoiceStyle.NARRATOR, "ml-IN-MidhunNeural"),
+    VoiceProfile("ml-IN-SobhanaNeural", "ml-IN", "Malayalam", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ml-IN-SobhanaNeural"),
+  ]},
+  "mt": {"default": "mt-MT-GraceNeural", "voices": [
+    VoiceProfile("mt-MT-GraceNeural", "mt-MT", "Maltese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "mt-MT-GraceNeural"),
+    VoiceProfile("mt-MT-JosephNeural", "mt-MT", "Maltese", VoiceGender.MALE, VoiceStyle.NARRATOR, "mt-MT-JosephNeural"),
+  ]},
+  "mr": {"default": "mr-IN-AarohiNeural", "voices": [
+    VoiceProfile("mr-IN-AarohiNeural", "mr-IN", "Marathi", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "mr-IN-AarohiNeural"),
+    VoiceProfile("mr-IN-ManoharNeural", "mr-IN", "Marathi", VoiceGender.MALE, VoiceStyle.NARRATOR, "mr-IN-ManoharNeural"),
+  ]},
+  "mn": {"default": "mn-MN-BataaNeural", "voices": [
+    VoiceProfile("mn-MN-BataaNeural", "mn-MN", "Mongolian", VoiceGender.MALE, VoiceStyle.NARRATOR, "mn-MN-BataaNeural"),
+    VoiceProfile("mn-MN-YesuiNeural", "mn-MN", "Mongolian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "mn-MN-YesuiNeural"),
+  ]},
+  "ne": {"default": "ne-NP-HemkalaNeural", "voices": [
+    VoiceProfile("ne-NP-HemkalaNeural", "ne-NP", "Nepali", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ne-NP-HemkalaNeural"),
+    VoiceProfile("ne-NP-SagarNeural", "ne-NP", "Nepali", VoiceGender.MALE, VoiceStyle.NARRATOR, "ne-NP-SagarNeural"),
+  ]},
+  "nb": {"default": "nb-NO-FinnNeural", "voices": [
+    VoiceProfile("nb-NO-FinnNeural", "nb-NO", "Norwegian", VoiceGender.MALE, VoiceStyle.NARRATOR, "nb-NO-FinnNeural"),
+    VoiceProfile("nb-NO-PernilleNeural", "nb-NO", "Norwegian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "nb-NO-PernilleNeural"),
+  ]},
+  "ps": {"default": "ps-AF-GulNawazNeural", "voices": [
+    VoiceProfile("ps-AF-GulNawazNeural", "ps-AF", "Pashto", VoiceGender.MALE, VoiceStyle.NARRATOR, "ps-AF-GulNawazNeural"),
+    VoiceProfile("ps-AF-LatifaNeural", "ps-AF", "Pashto", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ps-AF-LatifaNeural"),
+  ]},
+  "fa": {"default": "fa-IR-DilaraNeural", "voices": [
+    VoiceProfile("fa-IR-DilaraNeural", "fa-IR", "Persian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "fa-IR-DilaraNeural"),
+    VoiceProfile("fa-IR-FaridNeural", "fa-IR", "Persian", VoiceGender.MALE, VoiceStyle.NARRATOR, "fa-IR-FaridNeural"),
+  ]},
+  "pl": {"default": "pl-PL-MarekNeural", "voices": [
+    VoiceProfile("pl-PL-MarekNeural", "pl-PL", "Polish", VoiceGender.MALE, VoiceStyle.NARRATOR, "pl-PL-MarekNeural"),
+    VoiceProfile("pl-PL-ZofiaNeural", "pl-PL", "Polish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "pl-PL-ZofiaNeural"),
+  ]},
+  "pt": {"default": "pt-BR-ThalitaMultilingualNeural", "voices": [
+    VoiceProfile("pt-BR-ThalitaMultilingualNeural", "pt-BR", "Portuguese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "pt-BR-ThalitaMultilingualNeural"),
+    VoiceProfile("pt-BR-AntonioNeural", "pt-BR", "Portuguese", VoiceGender.MALE, VoiceStyle.NARRATOR, "pt-BR-AntonioNeural"),
+    VoiceProfile("pt-BR-FranciscaNeural", "pt-BR", "Portuguese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "pt-BR-FranciscaNeural"),
+    VoiceProfile("pt-PT-DuarteNeural", "pt-PT", "Portuguese", VoiceGender.MALE, VoiceStyle.NARRATOR, "pt-PT-DuarteNeural"),
+    VoiceProfile("pt-PT-RaquelNeural", "pt-PT", "Portuguese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "pt-PT-RaquelNeural"),
+  ]},
+  "ro": {"default": "ro-RO-AlinaNeural", "voices": [
+    VoiceProfile("ro-RO-AlinaNeural", "ro-RO", "Romanian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ro-RO-AlinaNeural"),
+    VoiceProfile("ro-RO-EmilNeural", "ro-RO", "Romanian", VoiceGender.MALE, VoiceStyle.NARRATOR, "ro-RO-EmilNeural"),
+  ]},
+  "ru": {"default": "ru-RU-DmitryNeural", "voices": [
+    VoiceProfile("ru-RU-DmitryNeural", "ru-RU", "Russian", VoiceGender.MALE, VoiceStyle.NARRATOR, "ru-RU-DmitryNeural"),
+    VoiceProfile("ru-RU-SvetlanaNeural", "ru-RU", "Russian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ru-RU-SvetlanaNeural"),
+  ]},
+  "sr": {"default": "sr-RS-NicholasNeural", "voices": [
+    VoiceProfile("sr-RS-NicholasNeural", "sr-RS", "Serbian", VoiceGender.MALE, VoiceStyle.NARRATOR, "sr-RS-NicholasNeural"),
+    VoiceProfile("sr-RS-SophieNeural", "sr-RS", "Serbian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sr-RS-SophieNeural"),
+  ]},
+  "si": {"default": "si-LK-SameeraNeural", "voices": [
+    VoiceProfile("si-LK-SameeraNeural", "si-LK", "Sinhala", VoiceGender.MALE, VoiceStyle.NARRATOR, "si-LK-SameeraNeural"),
+    VoiceProfile("si-LK-ThiliniNeural", "si-LK", "Sinhala", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "si-LK-ThiliniNeural"),
+  ]},
+  "sk": {"default": "sk-SK-LukasNeural", "voices": [
+    VoiceProfile("sk-SK-LukasNeural", "sk-SK", "Slovak", VoiceGender.MALE, VoiceStyle.NARRATOR, "sk-SK-LukasNeural"),
+    VoiceProfile("sk-SK-ViktoriaNeural", "sk-SK", "Slovak", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sk-SK-ViktoriaNeural"),
+  ]},
+  "sl": {"default": "sl-SI-PetraNeural", "voices": [
+    VoiceProfile("sl-SI-PetraNeural", "sl-SI", "Slovenian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sl-SI-PetraNeural"),
+    VoiceProfile("sl-SI-RokNeural", "sl-SI", "Slovenian", VoiceGender.MALE, VoiceStyle.NARRATOR, "sl-SI-RokNeural"),
+  ]},
+  "so": {"default": "so-SO-MuuseNeural", "voices": [
+    VoiceProfile("so-SO-MuuseNeural", "so-SO", "Somali", VoiceGender.MALE, VoiceStyle.NARRATOR, "so-SO-MuuseNeural"),
+    VoiceProfile("so-SO-UbaxNeural", "so-SO", "Somali", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "so-SO-UbaxNeural"),
+  ]},
+  "es": {"default": "es-AR-ElenaNeural", "voices": [
+    VoiceProfile("es-AR-ElenaNeural", "es-AR", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-AR-ElenaNeural"),
+    VoiceProfile("es-AR-TomasNeural", "es-AR", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-AR-TomasNeural"),
+    VoiceProfile("es-BO-MarceloNeural", "es-BO", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-BO-MarceloNeural"),
+    VoiceProfile("es-BO-SofiaNeural", "es-BO", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-BO-SofiaNeural"),
+    VoiceProfile("es-CL-CatalinaNeural", "es-CL", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-CL-CatalinaNeural"),
+    VoiceProfile("es-CL-LorenzoNeural", "es-CL", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-CL-LorenzoNeural"),
+    VoiceProfile("es-CO-GonzaloNeural", "es-CO", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-CO-GonzaloNeural"),
+    VoiceProfile("es-CO-SalomeNeural", "es-CO", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-CO-SalomeNeural"),
+    VoiceProfile("es-ES-XimenaNeural", "es-ES", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-ES-XimenaNeural"),
+    VoiceProfile("es-CR-JuanNeural", "es-CR", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-CR-JuanNeural"),
+    VoiceProfile("es-CR-MariaNeural", "es-CR", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-CR-MariaNeural"),
+    VoiceProfile("es-CU-BelkysNeural", "es-CU", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-CU-BelkysNeural"),
+    VoiceProfile("es-CU-ManuelNeural", "es-CU", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-CU-ManuelNeural"),
+    VoiceProfile("es-DO-EmilioNeural", "es-DO", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-DO-EmilioNeural"),
+    VoiceProfile("es-DO-RamonaNeural", "es-DO", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-DO-RamonaNeural"),
+    VoiceProfile("es-EC-AndreaNeural", "es-EC", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-EC-AndreaNeural"),
+    VoiceProfile("es-EC-LuisNeural", "es-EC", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-EC-LuisNeural"),
+    VoiceProfile("es-SV-LorenaNeural", "es-SV", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-SV-LorenaNeural"),
+    VoiceProfile("es-SV-RodrigoNeural", "es-SV", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-SV-RodrigoNeural"),
+    VoiceProfile("es-GQ-JavierNeural", "es-GQ", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-GQ-JavierNeural"),
+    VoiceProfile("es-GQ-TeresaNeural", "es-GQ", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-GQ-TeresaNeural"),
+    VoiceProfile("es-GT-AndresNeural", "es-GT", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-GT-AndresNeural"),
+    VoiceProfile("es-GT-MartaNeural", "es-GT", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-GT-MartaNeural"),
+    VoiceProfile("es-HN-CarlosNeural", "es-HN", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-HN-CarlosNeural"),
+    VoiceProfile("es-HN-KarlaNeural", "es-HN", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-HN-KarlaNeural"),
+    VoiceProfile("es-MX-DaliaNeural", "es-MX", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-MX-DaliaNeural"),
+    VoiceProfile("es-MX-JorgeNeural", "es-MX", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-MX-JorgeNeural"),
+    VoiceProfile("es-NI-FedericoNeural", "es-NI", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-NI-FedericoNeural"),
+    VoiceProfile("es-NI-YolandaNeural", "es-NI", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-NI-YolandaNeural"),
+    VoiceProfile("es-PA-MargaritaNeural", "es-PA", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-PA-MargaritaNeural"),
+    VoiceProfile("es-PA-RobertoNeural", "es-PA", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-PA-RobertoNeural"),
+    VoiceProfile("es-PY-MarioNeural", "es-PY", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-PY-MarioNeural"),
+    VoiceProfile("es-PY-TaniaNeural", "es-PY", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-PY-TaniaNeural"),
+    VoiceProfile("es-PE-AlexNeural", "es-PE", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-PE-AlexNeural"),
+    VoiceProfile("es-PE-CamilaNeural", "es-PE", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-PE-CamilaNeural"),
+    VoiceProfile("es-PR-KarinaNeural", "es-PR", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-PR-KarinaNeural"),
+    VoiceProfile("es-PR-VictorNeural", "es-PR", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-PR-VictorNeural"),
+    VoiceProfile("es-ES-AlvaroNeural", "es-ES", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-ES-AlvaroNeural"),
+    VoiceProfile("es-ES-ElviraNeural", "es-ES", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-ES-ElviraNeural"),
+    VoiceProfile("es-US-AlonsoNeural", "es-US", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-US-AlonsoNeural"),
+    VoiceProfile("es-US-PalomaNeural", "es-US", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-US-PalomaNeural"),
+    VoiceProfile("es-UY-MateoNeural", "es-UY", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-UY-MateoNeural"),
+    VoiceProfile("es-UY-ValentinaNeural", "es-UY", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-UY-ValentinaNeural"),
+    VoiceProfile("es-VE-PaolaNeural", "es-VE", "Spanish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "es-VE-PaolaNeural"),
+    VoiceProfile("es-VE-SebastianNeural", "es-VE", "Spanish", VoiceGender.MALE, VoiceStyle.NARRATOR, "es-VE-SebastianNeural"),
+  ]},
+  "su": {"default": "su-ID-JajangNeural", "voices": [
+    VoiceProfile("su-ID-JajangNeural", "su-ID", "Sundanese", VoiceGender.MALE, VoiceStyle.NARRATOR, "su-ID-JajangNeural"),
+    VoiceProfile("su-ID-TutiNeural", "su-ID", "Sundanese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "su-ID-TutiNeural"),
+  ]},
+  "sw": {"default": "sw-KE-RafikiNeural", "voices": [
+    VoiceProfile("sw-KE-RafikiNeural", "sw-KE", "Swahili", VoiceGender.MALE, VoiceStyle.NARRATOR, "sw-KE-RafikiNeural"),
+    VoiceProfile("sw-KE-ZuriNeural", "sw-KE", "Swahili", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sw-KE-ZuriNeural"),
+    VoiceProfile("sw-TZ-DaudiNeural", "sw-TZ", "Swahili", VoiceGender.MALE, VoiceStyle.NARRATOR, "sw-TZ-DaudiNeural"),
+    VoiceProfile("sw-TZ-RehemaNeural", "sw-TZ", "Swahili", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sw-TZ-RehemaNeural"),
+  ]},
+  "sv": {"default": "sv-SE-MattiasNeural", "voices": [
+    VoiceProfile("sv-SE-MattiasNeural", "sv-SE", "Swedish", VoiceGender.MALE, VoiceStyle.NARRATOR, "sv-SE-MattiasNeural"),
+    VoiceProfile("sv-SE-SofieNeural", "sv-SE", "Swedish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "sv-SE-SofieNeural"),
+  ]},
+  "ta": {"default": "ta-IN-PallaviNeural", "voices": [
+    VoiceProfile("ta-IN-PallaviNeural", "ta-IN", "Tamil", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ta-IN-PallaviNeural"),
+    VoiceProfile("ta-IN-ValluvarNeural", "ta-IN", "Tamil", VoiceGender.MALE, VoiceStyle.NARRATOR, "ta-IN-ValluvarNeural"),
+    VoiceProfile("ta-MY-KaniNeural", "ta-MY", "Tamil", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ta-MY-KaniNeural"),
+    VoiceProfile("ta-MY-SuryaNeural", "ta-MY", "Tamil", VoiceGender.MALE, VoiceStyle.NARRATOR, "ta-MY-SuryaNeural"),
+    VoiceProfile("ta-SG-AnbuNeural", "ta-SG", "Tamil", VoiceGender.MALE, VoiceStyle.NARRATOR, "ta-SG-AnbuNeural"),
+    VoiceProfile("ta-SG-VenbaNeural", "ta-SG", "Tamil", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ta-SG-VenbaNeural"),
+    VoiceProfile("ta-LK-KumarNeural", "ta-LK", "Tamil", VoiceGender.MALE, VoiceStyle.NARRATOR, "ta-LK-KumarNeural"),
+    VoiceProfile("ta-LK-SaranyaNeural", "ta-LK", "Tamil", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ta-LK-SaranyaNeural"),
+  ]},
+  "te": {"default": "te-IN-MohanNeural", "voices": [
+    VoiceProfile("te-IN-MohanNeural", "te-IN", "Telugu", VoiceGender.MALE, VoiceStyle.NARRATOR, "te-IN-MohanNeural"),
+    VoiceProfile("te-IN-ShrutiNeural", "te-IN", "Telugu", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "te-IN-ShrutiNeural"),
+  ]},
+  "th": {"default": "th-TH-NiwatNeural", "voices": [
+    VoiceProfile("th-TH-NiwatNeural", "th-TH", "Thai", VoiceGender.MALE, VoiceStyle.NARRATOR, "th-TH-NiwatNeural"),
+    VoiceProfile("th-TH-PremwadeeNeural", "th-TH", "Thai", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "th-TH-PremwadeeNeural"),
+  ]},
+  "tr": {"default": "tr-TR-EmelNeural", "voices": [
+    VoiceProfile("tr-TR-EmelNeural", "tr-TR", "Turkish", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "tr-TR-EmelNeural"),
+    VoiceProfile("tr-TR-AhmetNeural", "tr-TR", "Turkish", VoiceGender.MALE, VoiceStyle.NARRATOR, "tr-TR-AhmetNeural"),
+  ]},
+  "uk": {"default": "uk-UA-OstapNeural", "voices": [
+    VoiceProfile("uk-UA-OstapNeural", "uk-UA", "Ukrainian", VoiceGender.MALE, VoiceStyle.NARRATOR, "uk-UA-OstapNeural"),
+    VoiceProfile("uk-UA-PolinaNeural", "uk-UA", "Ukrainian", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "uk-UA-PolinaNeural"),
+  ]},
+  "ur": {"default": "ur-IN-GulNeural", "voices": [
+    VoiceProfile("ur-IN-GulNeural", "ur-IN", "Urdu", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ur-IN-GulNeural"),
+    VoiceProfile("ur-IN-SalmanNeural", "ur-IN", "Urdu", VoiceGender.MALE, VoiceStyle.NARRATOR, "ur-IN-SalmanNeural"),
+    VoiceProfile("ur-PK-AsadNeural", "ur-PK", "Urdu", VoiceGender.MALE, VoiceStyle.NARRATOR, "ur-PK-AsadNeural"),
+    VoiceProfile("ur-PK-UzmaNeural", "ur-PK", "Urdu", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "ur-PK-UzmaNeural"),
+  ]},
+  "uz": {"default": "uz-UZ-MadinaNeural", "voices": [
+    VoiceProfile("uz-UZ-MadinaNeural", "uz-UZ", "Uzbek", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "uz-UZ-MadinaNeural"),
+    VoiceProfile("uz-UZ-SardorNeural", "uz-UZ", "Uzbek", VoiceGender.MALE, VoiceStyle.NARRATOR, "uz-UZ-SardorNeural"),
+  ]},
+  "vi": {"default": "vi-VN-HoaiMyNeural", "voices": [
+    VoiceProfile("vi-VN-HoaiMyNeural", "vi-VN", "Vietnamese", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "vi-VN-HoaiMyNeural"),
+    VoiceProfile("vi-VN-NamMinhNeural", "vi-VN", "Vietnamese", VoiceGender.MALE, VoiceStyle.NARRATOR, "vi-VN-NamMinhNeural"),
+  ]},
+  "cy": {"default": "cy-GB-AledNeural", "voices": [
+    VoiceProfile("cy-GB-AledNeural", "cy-GB", "Welsh", VoiceGender.MALE, VoiceStyle.NARRATOR, "cy-GB-AledNeural"),
+    VoiceProfile("cy-GB-NiaNeural", "cy-GB", "Welsh", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "cy-GB-NiaNeural"),
+  ]},
+  "zu": {"default": "zu-ZA-ThandoNeural", "voices": [
+    VoiceProfile("zu-ZA-ThandoNeural", "zu-ZA", "Zulu", VoiceGender.FEMALE, VoiceStyle.NARRATOR, "zu-ZA-ThandoNeural"),
+    VoiceProfile("zu-ZA-ThembaNeural", "zu-ZA", "Zulu", VoiceGender.MALE, VoiceStyle.NARRATOR, "zu-ZA-ThembaNeural"),
+  ]},
 }
 
-# Language name mappings for user-friendly display
 LANGUAGE_NAMES = {
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "de": "German",
-    "pt": "Portuguese",
-    "it": "Italian",
-    "zh": "Chinese",
-    "ja": "Japanese",
-    "ko": "Korean",
-    "hi": "Hindi",
-    "ar": "Arabic",
-    "ru": "Russian",
-    "nl": "Dutch",
-    "pl": "Polish",
-    "tr": "Turkish",
-    "vi": "Vietnamese",
-    "th": "Thai",
-    "id": "Indonesian",
-    "ms": "Malay",
-    "sv": "Swedish",
-    "da": "Danish",
-    "no": "Norwegian",
-    "fi": "Finnish",
-    "el": "Greek",
-    "he": "Hebrew",
-    "cs": "Czech",
-    "hu": "Hungarian",
-    "ro": "Romanian",
-    "uk": "Ukrainian",
-    "ta": "Tamil",
-    "te": "Telugu",
-    "bn": "Bengali",
+  "af": "Afrikaans",
+  "sq": "Albanian",
+  "am": "Amharic",
+  "ar": "Arabic",
+  "az": "Azerbaijani",
+  "bn": "Bengali",
+  "bs": "Bosnian",
+  "bg": "Bulgarian",
+  "my": "Burmese",
+  "ca": "Catalan",
+  "zh": "Chinese",
+  "hr": "Croatian",
+  "cs": "Czech",
+  "da": "Danish",
+  "nl": "Dutch",
+  "en": "English",
+  "et": "Estonian",
+  "fil": "Filipino",
+  "fi": "Finnish",
+  "fr": "French",
+  "gl": "Galician",
+  "ka": "Georgian",
+  "de": "German",
+  "el": "Greek",
+  "gu": "Gujarati",
+  "he": "Hebrew",
+  "hi": "Hindi",
+  "hu": "Hungarian",
+  "is": "Icelandic",
+  "id": "Indonesian",
+  "iu": "Inuktitut",
+  "ga": "Irish",
+  "it": "Italian",
+  "ja": "Japanese",
+  "jv": "Javanese",
+  "kn": "Kannada",
+  "kk": "Kazakh",
+  "km": "Khmer",
+  "ko": "Korean",
+  "lo": "Lao",
+  "lv": "Latvian",
+  "lt": "Lithuanian",
+  "mk": "Macedonian",
+  "ms": "Malay",
+  "ml": "Malayalam",
+  "mt": "Maltese",
+  "mr": "Marathi",
+  "mn": "Mongolian",
+  "ne": "Nepali",
+  "nb": "Norwegian",
+  "ps": "Pashto",
+  "fa": "Persian",
+  "pl": "Polish",
+  "pt": "Portuguese",
+  "ro": "Romanian",
+  "ru": "Russian",
+  "sr": "Serbian",
+  "si": "Sinhala",
+  "sk": "Slovak",
+  "sl": "Slovenian",
+  "so": "Somali",
+  "es": "Spanish",
+  "su": "Sundanese",
+  "sw": "Swahili",
+  "sv": "Swedish",
+  "ta": "Tamil",
+  "te": "Telugu",
+  "th": "Thai",
+  "tr": "Turkish",
+  "uk": "Ukrainian",
+  "ur": "Urdu",
+  "uz": "Uzbek",
+  "vi": "Vietnamese",
+  "cy": "Welsh",
+  "zu": "Zulu",
 }
+
+
 
 
 def get_voice_for_language(

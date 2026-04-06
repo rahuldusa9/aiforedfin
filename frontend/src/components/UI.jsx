@@ -143,7 +143,7 @@ export function Button({ children, variant = 'primary', loading = false, classNa
 /**
  * Audio Player (minimal black theme)
  */
-export function AudioPlayer({ src, className = '' }) {
+export function AudioPlayer({ src, className = '', onEnded }) {
   if (!src) return null
 
   return (
@@ -167,6 +167,7 @@ export function AudioPlayer({ src, className = '' }) {
       <audio
         controls
         src={src}
+        onEnded={onEnded}
         className="w-full h-10 rounded-lg"
         style={{ filter: 'invert(1) hue-rotate(180deg)', opacity: 0.8 }}
       />

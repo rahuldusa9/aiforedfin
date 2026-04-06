@@ -11,10 +11,10 @@ from models.quiz import create_quiz_result_doc
 logger = logging.getLogger(__name__)
 
 
-def create_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium") -> dict:
+def create_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium", content: str | None = None) -> dict:
     """
     Generate a quiz via Gemini API.
-    
+
     Returns:
         {
             "topic": str,
@@ -24,17 +24,17 @@ def create_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium") 
     """
     if not topic or not topic.strip():
         raise ValueError("Topic cannot be empty")
-    
+
     if num_questions < 1 or num_questions > 20:
         raise ValueError("Number of questions must be between 1 and 20")
-    
+
     if difficulty not in ["easy", "medium", "hard"]:
         raise ValueError("Difficulty must be easy, medium, or hard")
-    
+
     logger.info(f"[Quiz] Generating {num_questions} {difficulty} questions on: {topic}")
-    
+
     try:
-        questions = generate_quiz(topic, num_questions, difficulty)
+        questions = generate_quiz(topic, num_questions, difficulty, content)
         
         if not questions or len(questions) == 0:
             raise ValueError("No questions were generated")

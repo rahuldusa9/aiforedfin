@@ -21,6 +21,7 @@ class QuizGenerateRequest(BaseModel):
     topic: str = Field(..., min_length=2, max_length=200)
     num_questions: int = Field(5, ge=1, le=20)
     difficulty: str = Field("medium", pattern="^(easy|medium|hard)$")
+    content: str | None = Field(None, description="Optional content to base the quiz directly on")
 
 
 class QuizSubmitRequest(BaseModel):
@@ -39,11 +40,11 @@ class QuizSubmitRequest(BaseModel):
 def generate_quiz_endpoint(req: QuizGenerateRequest):
     """Generate a new quiz."""
     try:
-        result = create_quiz(req.topic, req.num_questions, req.difficulty)
+        result = create_quiz(req.topic, req.num_questions, req.difficulty, req.content)
         return result
     except Exception as e:
-        logger.error(f"[Quiz] Generation error: {e}")
-        raise HTTPException(status_code=500, detail=f"Quiz generation failed: {str(e)}")
+        logger.error(f"[Quiz] Generation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/submit")

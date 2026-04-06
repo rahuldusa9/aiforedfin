@@ -70,20 +70,29 @@ def generate_text(prompt: str, max_tokens: int = 4096) -> str:
         raise
 
 
-def generate_podcast_script(topic: str) -> list[dict]:
+def generate_podcast_script(topic: str, language: str = "en", length: str = "medium") -> list[dict]:
     """
     Generate a structured 2-speaker podcast script.
     
     Returns:
         List of dialogue entries: [{"speaker": "Host"|"Expert", "text": "..."}]
     """
-    prompt = f"""Create an educational podcast script about: "{topic}"
+    length_map = {
+        "short": "5-7",
+        "medium": "10-14",
+        "long": "20-25"
+    }
+    exchanges = length_map.get(length, "10-14")
+
+    lang_instruction = "in English" if language == "en" else f"in {language} language"
+
+    prompt = f"""Create an educational podcast script about: "{topic}" {lang_instruction}.
 
 The podcast should have exactly 2 speakers:
 - "Host" — asks questions and guides the conversation
 - "Expert" — provides detailed educational explanations
 
-Generate exactly 10-14 dialogue exchanges (alternating speakers).
+Generate exactly {exchanges} dialogue exchanges (alternating speakers).
 Each line should be engaging, educational, and conversational.
 Keep each speaker turn to 2-4 sentences maximum.
 
@@ -133,14 +142,18 @@ No markdown, no code blocks, no extra text. Only the JSON array."""
     return cleaned_script
 
 
-def generate_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium") -> list[dict]:
+def generate_quiz(topic: str, num_questions: int = 5, difficulty: str = "medium", content: str = None) -> list[dict]:
     """
     Generate quiz questions via Gemini.
-    
+
     Returns:
         List of questions with options and correct answer.
     """
-    prompt = f"""Generate exactly {num_questions} multiple-choice quiz questions about "{topic}" at {difficulty} difficulty level.
+    content_instruction = ""
+    if content:
+        content_instruction = f"\nBASED EXCLUSIVELY ON THE FOLLOWING TEXT/TRANSCRIPT:\n---\n{content}\n---\n"
+
+    prompt = f"""Generate exactly {num_questions} multiple-choice quiz questions about "{topic}" at {difficulty} difficulty level.{content_instruction}
 
 Each question must have exactly 4 options (A, B, C, D) and one correct answer.
 
@@ -228,17 +241,16 @@ No markdown, no code blocks, no extra text. Only the JSON array."""
         }]
 
 
-def generate_story(topic: str) -> str:
+def generate_story(topic: str, word_count: int = 400) -> str:
     """
     Convert a topic into a narrative educational explanation.
     """
-    prompt = f"""Write a SHORT, PUNCHY educational story about "{topic}".
+    prompt = f"""Write a PUNCHY educational story about "{topic}".
 
 STYLE: Fast-paced, exciting, dramatic. Keep readers on the edge!
 
 REQUIREMENTS:
-- 300-400 words MAX - be concise!
-- 3-4 paragraphs only
+- ~{word_count} words
 - Start with ACTION or DRAMA - hook them instantly
 - Include 2-3 quick dialogue exchanges
 - Make it EXCITING - use vivid verbs, short punchy sentences

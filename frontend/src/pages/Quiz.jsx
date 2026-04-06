@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { HelpCircle, CheckCircle, XCircle, BarChart3 } from 'lucide-react'
 import { generateQuiz, submitQuiz } from '../api'
 import { useAuth } from '../context/AuthContext'
@@ -12,6 +13,8 @@ import { PageHeader, Card, Input, Select, Button, LoadingSpinner } from '../comp
 export default function Quiz() {
   const { user } = useAuth()
   const toast = useToast()
+  const location = useLocation()
+  
   const [topic, setTopic] = useState('')
   const [numQuestions, setNumQuestions] = useState(5)
   const [difficulty, setDifficulty] = useState('medium')
@@ -22,6 +25,14 @@ export default function Quiz() {
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
   const startTime = useRef(null)
+
+  // Initialize topic from navigation state if available
+  useEffect(() => {
+    if (location.state?.topic) {
+      setTopic(location.state.topic)
+      toast.success(`Ready to test your knowledge on ${location.state.topic}?`)
+    }
+  }, [location.state, toast])
 
   const handleGenerate = async () => {
     if (!topic.trim()) {
@@ -36,7 +47,7 @@ export default function Quiz() {
     startTime.current = null
 
     try {
-      const { data } = await generateQuiz(topic, numQuestions, difficulty)
+      const { data } = await generateQuiz(topic, numQuestions, difficulty, location.state?.content)
       if (!data || !data.questions || data.questions.length === 0) {
         throw new Error('No questions generated')
       }

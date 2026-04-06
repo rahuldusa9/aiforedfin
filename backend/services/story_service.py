@@ -13,12 +13,13 @@ from services.multilingual_story_engine import generate_multilingual_story as ge
 logger = logging.getLogger(__name__)
 
 
-def create_story(topic: str) -> dict:
+def create_story(topic: str, word_count: int = 400) -> dict:
     """
     Generate an educational story with audio narration (English).
 
     Args:
         topic: The topic to create a story about
+        word_count: Approximate word count
 
     Returns:
         {
@@ -27,10 +28,10 @@ def create_story(topic: str) -> dict:
             "audio_url": str
         }
     """
-    logger.info(f"[Story] Creating story for topic: {topic}")
+    logger.info(f"[Story] Creating story for topic: {topic} (word_count: {word_count})")
 
     # Generate story text
-    story_text = generate_story(topic)
+    story_text = generate_story(topic, word_count)
     logger.info(f"[Story] Text generated: {len(story_text)} chars")
 
     # Generate audio
